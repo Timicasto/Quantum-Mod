@@ -11,10 +11,12 @@ public class RegistryHandler {
     @SubscribeEvent
     public static void registerBlock(RegistryEvent.Register<Block> event) {
         event.getRegistry().register(ModItems.willowWood);
+        event.getRegistry().register(ModItems.willowLeaves);
     }
 
     @SubscribeEvent
     public static void registerItem(RegistryEvent.Register<Item> event) {
         event.getRegistry().register(ModItems.willowWoodItemBlock.setRegistryName("willow_wood"));
+        event.getRegistry().register(ModItems.willowLeavesItemBlock.setRegistryName("willow_leaves"));
     }
 }
