@@ -18,5 +18,4 @@ public class RegistryHandler {
     public static void registerItem(RegistryEvent.Register<Item> event) {
         event.getRegistry().register(ModItems.willowWoodItemBlock.setRegistryName("willow_wood"));
         event.getRegistry().register(ModItems.willowLeavesItemBlock.setRegistryName("willow_leaves"));
-    }
-}
+    }}
