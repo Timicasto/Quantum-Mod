@@ -10,11 +10,11 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 public class RegistryHandler {
     @SubscribeEvent
     public static void registerBlock(RegistryEvent.Register<Block> event) {
-        event.getRegistry().register(ModItems.willowWood);
+        ModItems.registerBlocks(event.getRegistry());
     }
 
     @SubscribeEvent
     public static void registerItem(RegistryEvent.Register<Item> event) {
-        event.getRegistry().register(ModItems.willowWoodItemBlock.setRegistryName("willow_wood"));
+        ModItems.registerItems(event.getRegistry());
     }
 }
