@@ -5,6 +5,7 @@ import net.minecraft.block.IGrowable;
 import net.minecraft.block.properties.PropertyInteger;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.client.resources.I18n;
 import net.minecraft.init.Blocks;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
@@ -12,6 +13,7 @@ import net.minecraft.world.World;
 import net.minecraft.world.gen.feature.WorldGenBigTree;
 import net.minecraft.world.gen.feature.WorldGenTrees;
 import net.minecraft.world.gen.feature.WorldGenerator;
+import timicasto.quantumbase.creative.TabLoader;
 import timicasto.quantumbase.environment.GenTree;
 
 import java.util.Random;
@@ -25,6 +27,11 @@ public class WillowSapling extends BlockBush implements IGrowable {
         this.type=i;
         this.setDefaultState(this.blockState.getBaseState().withProperty(STAGE,0));
         float f = 0.4F;
+        this.setRegistryName("willow_sapling");
+        this.setUnlocalizedName("willow_sapling");
+        this.setCreativeTab(TabLoader.envTab);
+
+        assert I18n.format("tile.willow_sapling.name").equals("柳树树苗");
     }
 
     @Override
