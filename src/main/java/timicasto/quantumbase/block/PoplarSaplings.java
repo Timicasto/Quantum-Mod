@@ -18,20 +18,20 @@ import timicasto.quantumbase.environment.GenTree;
 
 import java.util.Random;
 
-public class WillowSapling extends BlockBush implements IGrowable {
+public class PoplarSaplings extends BlockBush implements IGrowable {
     public static final PropertyInteger STAGE = PropertyInteger.create("stage", 0, 1);
 
     public int type;
 
-    public WillowSapling(int i) {
+    public PoplarSaplings(int i) {
         this.type=i;
         this.setDefaultState(this.blockState.getBaseState().withProperty(STAGE,0));
         float f = 0.4F;
-        this.setRegistryName("willow_sapling");
-        this.setUnlocalizedName("willow_sapling");
+        this.setRegistryName("poplar_sapling");
+        this.setUnlocalizedName("poplar_sapling");
         this.setCreativeTab(TabLoader.envTab);
 
-        assert I18n.format("tile.willow_sapling.name").equals("柳树树苗");
+        assert I18n.format("tile.poplar_sapling.name").equals("杨树树苗");
     }
 
     @Override
@@ -69,7 +69,7 @@ public class WillowSapling extends BlockBush implements IGrowable {
 
         switch (type) {
             case 0:
-                worldGenerator = new GenTree().willowTree;
+                worldGenerator = new GenTree().poplarTree;
                 break;
         }
 
