@@ -7,7 +7,9 @@ import net.minecraftforge.fml.common.SidedProxy;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
+import net.minecraftforge.fml.common.registry.GameRegistry;
 import timicasto.quantumbase.creative.EnvCreativeTab;
+import timicasto.quantumbase.environment.GenTree;
 import timicasto.quantumbase.proxy.CommonProxy;
 
 @Mod(modid = QuantumBase.MODID, name = QuantumBase.NAME, version = QuantumBase.VERSION)
@@ -27,6 +29,7 @@ public class QuantumBase {
         //所有变量初始化必须在最开始，不然小心NPE
         instance = this;
         proxy.preInit(event);
+        GameRegistry.registerWorldGenerator(new GenTree(),3);
     }
 
     @Mod.EventHandler
