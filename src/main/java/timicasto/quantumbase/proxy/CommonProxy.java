@@ -4,7 +4,7 @@ import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import timicasto.quantumbase.creative.TabLoader;
-import timicasto.quantumbase.fluid.FluidLoader;
+// import timicasto.quantumbase.fluid.FluidLoader;
 
 public class CommonProxy {
 
