@@ -35,7 +35,7 @@ public class QuantumBase {
         instance = this;
         proxy.preInit(event);
         GameRegistry.registerWorldGenerator(new GenTree(),3);
-        GameRegistry.registerWorldGenerator(new WorldGenCustomStructure(),2);
+        GameRegistry.registerWorldGenerator(new WorldGenCustomStructure(),0);
     }
 
     @Mod.EventHandler

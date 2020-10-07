@@ -26,7 +26,6 @@ public class ModSaplings extends BlockBush implements IGrowable {
     public ModSaplings(int i) {
         this.type=i;
         this.setDefaultState(this.blockState.getBaseState().withProperty(STAGE,0));
-        float f = 0.4F;
         this.setRegistryName("willow_sapling");
         this.setUnlocalizedName("willow_sapling");
         this.setCreativeTab(TabLoader.envTab);

@@ -25,8 +25,8 @@ public class WorldGenCustomStructure implements IWorldGenerator {
             case 1:
                 break;
             case 0:
-                if (world.getBiomeForCoordsBody(new BlockPos(chunkX * 16, 70, chunkZ * 16)) instanceof BiomePlains) {
-                    generateStructure(combustibleIce, world, random, chunkX, chunkZ, 5, Blocks.WATER);
+                if (world.getBiomeForCoordsBody(new BlockPos(chunkX * 16, 70, chunkZ * 16)) instanceof BiomeOcean) {
+                    generateStructure(combustibleIce, world, random, chunkX, chunkZ, 1, Blocks.WATER);
                 }
                 break;
             case -1:
@@ -52,7 +52,8 @@ public class WorldGenCustomStructure implements IWorldGenerator {
             Block block = world.getBlockState(new BlockPos(x,y,z)).getBlock();
             foundGround = block == topBlock;
         }
-        return y;
+        int resultY = y-5;
+        return resultY;
     }
 }
 
