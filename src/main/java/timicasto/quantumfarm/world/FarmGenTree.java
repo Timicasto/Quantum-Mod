@@ -1,4 +1,4 @@
-package timicasto.quantumbase.environment;
+package timicasto.quantumfarm.world;
 
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
@@ -10,23 +10,19 @@ import net.minecraft.world.gen.feature.WorldGenTrees;
 import net.minecraft.world.gen.feature.WorldGenerator;
 import net.minecraftforge.fml.common.IWorldGenerator;
 import timicasto.quantumbase.ModItems;
+import timicasto.quantumfarm.FarmItems;
 
 import java.util.Random;
 
-public class GenTree implements IWorldGenerator {
-
-    public WorldGenTrees willowTree = new WorldGenTrees(false, 6, ModItems.willowWood.getDefaultState(), ModItems.willowLeaves.getDefaultState(), false);
-    public WorldGenTrees poplarTree = new WorldGenTrees(false, 12, ModItems.poplarWood.getDefaultState(), ModItems.poplarLeaves.getDefaultState(), false);
+public class FarmGenTree implements IWorldGenerator {
+    public WorldGenTrees appleTree = new WorldGenTrees(false, 6, FarmItems.appleWood.getDefaultState(), FarmItems.appleLeaves.getDefaultState(), false);
 
     @Override
     public void generate(Random random, int chunkX, int chunkZ, World world, IChunkGenerator chunkGenerator, IChunkProvider chunkProvider) {
         switch(world.provider.getDimension()) {
             case 0: //Overworld
                 if(world.getBiomeForCoordsBody(new BlockPos(chunkX * 16, 70, chunkZ * 16)) instanceof BiomePlains) {
-                    populate(willowTree, world, random, chunkX, chunkZ, 2);
-                }
-                if(world.getBiomeForCoordsBody(new BlockPos(chunkX * 16,70,chunkZ * 16)) instanceof BiomeForest) {
-                    populate(poplarTree,world,random,chunkX,chunkZ,4);
+                    populate(appleTree, world, random, chunkX, chunkZ, 1);
                 }
                 break;
             case -1: //Nether
@@ -45,5 +41,4 @@ public class GenTree implements IWorldGenerator {
             generator.generate(world, random, new BlockPos(x, y, z));
         }
     }
-
 }
