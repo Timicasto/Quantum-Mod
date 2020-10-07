@@ -13,6 +13,7 @@ import net.minecraftforge.fml.common.registry.GameRegistry;
 import timicasto.quantumbase.creative.EnvCreativeTab;
 import timicasto.quantumbase.environment.GenTree;
 // import timicasto.quantumbase.fluid.LiquidPetroleum;
+import timicasto.quantumbase.environment.WorldGenCustomStructure;
 import timicasto.quantumbase.proxy.CommonProxy;
 
 @Mod(modid = QuantumBase.MODID, name = QuantumBase.NAME, version = QuantumBase.VERSION)
@@ -34,6 +35,7 @@ public class QuantumBase {
         instance = this;
         proxy.preInit(event);
         GameRegistry.registerWorldGenerator(new GenTree(),3);
+        GameRegistry.registerWorldGenerator(new WorldGenCustomStructure(),2);
     }
 
     @Mod.EventHandler
