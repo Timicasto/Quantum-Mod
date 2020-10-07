@@ -11,6 +11,10 @@ import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+import net.minecraftforge.fml.common.registry.EntityEntry;
+import net.minecraftforge.fml.common.registry.EntityEntryBuilder;
+import net.minecraftforge.fml.common.registry.EntityRegistry;
+import timicasto.quantumbase.entity.PrimedIce;
 
 @Mod.EventBusSubscriber
 public class RegistryHandler {
@@ -46,5 +50,16 @@ public class RegistryHandler {
         ModelLoader.setCustomModelResourceLocation(ModItems.poplarSaplingItemBlock,0,new ModelResourceLocation(ModItems.poplarSaplingItemBlock.getRegistryName(),"inventory"));
         ModelLoader.setCustomModelResourceLocation(ModItems.poplarWoodItemBlock,0,new ModelResourceLocation(ModItems.poplarWoodItemBlock.getRegistryName(),"inventory"));
         ModelLoader.setCustomModelResourceLocation(ModItems.combustibleIcecItemBlock,0,new ModelResourceLocation(ModItems.combustibleIcecItemBlock.getRegistryName(),"inventory"));
+    }
+
+    @SubscribeEvent
+    public static void onEntityRegistation(RegistryEvent.Register<EntityEntry> event) {
+        event.getRegistry().register(EntityEntryBuilder.create()
+                .entity(PrimedIce.class)
+                .id(new ResourceLocation(QuantumBase.MODID, "PrimedIce"), 233)
+                .name("PrimedIce")
+                .tracker(80, 3, false)
+                .build()
+        );
     }
 }

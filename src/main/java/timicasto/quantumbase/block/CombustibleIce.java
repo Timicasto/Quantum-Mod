@@ -40,4 +40,13 @@ public class CombustibleIce extends Block {
         return new ItemStack(ModItems.combustibleIcecItemBlock,1);
     }
 
+    public static boolean getRandomBoolean() {
+        return Math.random() < 0.5;
+    }
+
+    public void onBlockDestroyedByPlayer(World worldIn, BlockPos pos, IBlockState state) {
+        if (getRandomBoolean() == true) {
+
+        }
+    }
 }
