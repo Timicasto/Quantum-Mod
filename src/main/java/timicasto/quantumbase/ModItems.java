@@ -6,8 +6,8 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemBlock;
 import net.minecraftforge.fluids.Fluid;
 import timicasto.quantumbase.block.*;
-import timicasto.quantumbase.fluid.LiquidPetroleum;
-import timicasto.quantumbase.fluid.LiquidPetroleumBlock;
+// import timicasto.quantumbase.fluid.LiquidPetroleum;
+// import timicasto.quantumbase.fluid.LiquidPetroleumBlock;
 
 public class ModItems {
     public static Block willowWood = new WillowWood();
@@ -24,5 +24,7 @@ public class ModItems {
     public static Item poplarSaplingItemBlock = new ItemBlock(poplarSapling);
     // public static Fluid petroleum = new LiquidPetroleum();
     // public static Block petroleumBlock = new LiquidPetroleumBlock();
-
+    public static Block combustibleIce = new CombustibleIce();
+    public static Item combustibleIcecItemBlock = new timicasto.quantumbase.item.CombustibleIce();
+    public static Item getCombustibleIceItemBlock = new ItemBlock(combustibleIce);
 }

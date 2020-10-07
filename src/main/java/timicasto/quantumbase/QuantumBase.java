@@ -12,7 +12,7 @@ import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import timicasto.quantumbase.creative.EnvCreativeTab;
 import timicasto.quantumbase.environment.GenTree;
-import timicasto.quantumbase.fluid.LiquidPetroleum;
+// import timicasto.quantumbase.fluid.LiquidPetroleum;
 import timicasto.quantumbase.proxy.CommonProxy;
 
 @Mod(modid = QuantumBase.MODID, name = QuantumBase.NAME, version = QuantumBase.VERSION)
@@ -22,7 +22,7 @@ public class QuantumBase {
     public static final String VERSION = "1.0.1";
     private static QuantumBase instance;
 
-    public static final Fluid petroleum = new LiquidPetroleum();
+    // public static final Fluid petroleum = new LiquidPetroleum();
 
     @SidedProxy(clientSide = "timicasto.quantumbase.proxy.ClientProxy",serverSide = "timicasto.quantumbase.proxy.CommonProxy")
     public static CommonProxy proxy;
@@ -40,8 +40,8 @@ public class QuantumBase {
     public void init(FMLInitializationEvent event)
     {
         proxy.init(event);
-        FluidRegistry.registerFluid(petroleum);
-        FluidRegistry.addBucketForFluid(petroleum);
+        // FluidRegistry.registerFluid(petroleum);
+        // FluidRegistry.addBucketForFluid(petroleum);
     }
 
     @Mod.EventHandler
