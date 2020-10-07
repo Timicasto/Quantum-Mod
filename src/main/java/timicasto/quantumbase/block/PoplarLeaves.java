@@ -23,10 +23,6 @@ public class PoplarLeaves extends Block {
         this.setSoundType(SoundType.PLANT);
         this.setTickRandomly(true);
 
-
-
-        assert I18n.format("tile.poplar_leaves.name").equals("杨树树叶");
-
     }
 
     @Override

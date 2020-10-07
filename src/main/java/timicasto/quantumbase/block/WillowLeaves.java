@@ -27,11 +27,6 @@ public class WillowLeaves extends Block {
         this.setLightOpacity(1);
         this.setSoundType(SoundType.PLANT);
         this.setTickRandomly(true);
-
-
-
-        assert I18n.format("tile.willow_leaves.name").equals("柳树树叶");
-
     }
 
     @Override

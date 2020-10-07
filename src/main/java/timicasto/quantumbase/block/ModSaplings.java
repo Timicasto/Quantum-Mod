@@ -30,8 +30,6 @@ public class ModSaplings extends BlockBush implements IGrowable {
         this.setRegistryName("willow_sapling");
         this.setUnlocalizedName("willow_sapling");
         this.setCreativeTab(TabLoader.envTab);
-
-        assert I18n.format("tile.willow_sapling.name").equals("柳树树苗");
     }
 
     @Override
