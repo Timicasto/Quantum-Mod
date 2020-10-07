@@ -30,8 +30,6 @@ public class PoplarSaplings extends BlockBush implements IGrowable {
         this.setRegistryName("poplar_sapling");
         this.setUnlocalizedName("poplar_sapling");
         this.setCreativeTab(TabLoader.envTab);
-
-        assert I18n.format("tile.poplar_sapling.name").equals("杨树树苗");
     }
 
     @Override

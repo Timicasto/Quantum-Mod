@@ -11,6 +11,5 @@ public class PoplarWood extends Block {
         this.setRegistryName("poplar_wood");
         this.setUnlocalizedName("poplar_wood");
         this.setCreativeTab(TabLoader.envTab);
-        assert I18n.format("tile.poplar_wood.name").equals("杨木");
     }
 }

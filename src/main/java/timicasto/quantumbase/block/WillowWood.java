@@ -11,6 +11,5 @@ public class WillowWood extends Block {
         this.setRegistryName("willow_wood");
         this.setUnlocalizedName("willow_wood");
         this.setCreativeTab(TabLoader.envTab);
-        assert I18n.format("tile.willow_wood.name").equals("柳木");
     }
 }

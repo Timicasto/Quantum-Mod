@@ -1,6 +1,5 @@
 {
-	"credit": "Made with Blockbench",
-	"texture_size": [128, 128],
+	"parent": "block/block",
 	"textures": {
 		"0": "quantumbase:blocks/willow_wood",
 		"1": "quantumbase:blocks/willow_wood_side",
