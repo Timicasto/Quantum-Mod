@@ -18,7 +18,7 @@ import javax.annotation.Nullable;
 public class PrimedIce extends EntityTNTPrimed {
     private static final DataParameter<Integer> FUSE = EntityDataManager.<Integer>createKey(PrimedIce.class, DataSerializers.VARINT);
     @Nullable
-    private EntityLivingBase tntPlacedBy;
+    public EntityLivingBase tntPlacedBy;
     private int fuse = 0;
 
     public PrimedIce(World worldIn) {
