@@ -25,6 +25,5 @@ public class ModItems {
     // public static Fluid petroleum = new LiquidPetroleum();
     // public static Block petroleumBlock = new LiquidPetroleumBlock();
     public static Block combustibleIce = new CombustibleIce();
-    public static Item combustibleIcecItemBlock = new timicasto.quantumbase.item.CombustibleIce();
-    public static Item getCombustibleIceItemBlock = new ItemBlock(combustibleIce);
+    public static Item combustibleIceItemBlock = new ItemBlock(combustibleIce);
 }

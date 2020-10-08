@@ -37,8 +37,7 @@ public class RegistryHandler {
         event.getRegistry().register(ModItems.poplarLeavesItemBlock.setRegistryName("poplar_leaves"));
         event.getRegistry().register(ModItems.poplarSaplingItemBlock.setRegistryName("poplar_sapling"));
         event.getRegistry().register(ModItems.poplarWoodItemBlock.setRegistryName("poplar_wood"));
-        event.getRegistry().register(ModItems.combustibleIcecItemBlock);
-        event.getRegistry().register(ModItems.getCombustibleIceItemBlock.setRegistryName("combustible_ice"));
+        event.getRegistry().register(ModItems.combustibleIceItemBlock.setRegistryName("combustible_ice"));
     }
 
     @SubscribeEvent
@@ -49,7 +48,7 @@ public class RegistryHandler {
         ModelLoader.setCustomModelResourceLocation(ModItems.poplarLeavesItemBlock,0,new ModelResourceLocation(ModItems.poplarLeavesItemBlock.getRegistryName(),"inventory"));
         ModelLoader.setCustomModelResourceLocation(ModItems.poplarSaplingItemBlock,0,new ModelResourceLocation(ModItems.poplarSaplingItemBlock.getRegistryName(),"inventory"));
         ModelLoader.setCustomModelResourceLocation(ModItems.poplarWoodItemBlock,0,new ModelResourceLocation(ModItems.poplarWoodItemBlock.getRegistryName(),"inventory"));
-        ModelLoader.setCustomModelResourceLocation(ModItems.combustibleIcecItemBlock,0,new ModelResourceLocation(ModItems.combustibleIcecItemBlock.getRegistryName(),"inventory"));
+        ModelLoader.setCustomModelResourceLocation(ModItems.combustibleIceItemBlock,0,new ModelResourceLocation(ModItems.combustibleIceItemBlock.getRegistryName(),"inventory"));
     }
 
     @SubscribeEvent
