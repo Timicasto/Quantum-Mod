@@ -7,19 +7,35 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.event.ModelRegistryEvent;
 import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.event.RegistryEvent;
-import net.minecraftforge.fluids.Fluid;
-import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.registry.EntityEntry;
 import net.minecraftforge.fml.common.registry.EntityEntryBuilder;
-import net.minecraftforge.fml.common.registry.EntityRegistry;
+import org.apache.logging.log4j.LogManager;
+import timicasto.quantumbase.block.BlockModSaplings;
+import timicasto.quantumbase.block.BlockPoplarSaplings;
+import timicasto.quantumbase.block.IModBlock;
 import timicasto.quantumbase.entity.PrimedIce;
+import timicasto.quantumbase.utils.ReflectionUtil;
+
+import java.util.HashMap;
 
 @Mod.EventBusSubscriber
 public class RegistryHandler {
+    private static final HashMap<String, IModBlock<? extends Block>> registerMap = new HashMap<>();
+
+    {
+        //ecial constructor need manual register
+        IModBlock<? extends Block> b0 = new BlockModSaplings(0);
+        registerMap.put(b0.name(), b0);
+
+        IModBlock<? extends Block> b1 = new BlockModSaplings(0);
+        registerMap.put(b1.name(), b1);
+    }
+
     @SubscribeEvent
     public static void registerBlock(RegistryEvent.Register<Block> event) {
+        /*
         event.getRegistry().register(ModItems.willowWood);
         event.getRegistry().register(ModItems.willowLeaves);
         event.getRegistry().register(ModItems.willowSapling);
@@ -27,10 +43,22 @@ public class RegistryHandler {
         event.getRegistry().register(ModItems.poplarSapling);
         event.getRegistry().register(ModItems.poplarWood);
         event.getRegistry().register(ModItems.combustibleIce);
+         */
+
+        ReflectionUtil.listPkgClasses("timicasto.quantumbase.block").forEach((v) -> {
+            LogManager.getLogger().info(v);
+            IModBlock<? extends Block> block = ReflectionUtil.initBlockClass(v);
+            if(block != null) {
+                event.getRegistry().register(block.getBlock());
+                registerMap.put(block.name(), block);
+            }
+        });
+
     }
 
     @SubscribeEvent
     public static void registerItem(RegistryEvent.Register<Item> event) {
+        /*
         event.getRegistry().register(ModItems.willowWoodItemBlock.setRegistryName("willow_wood"));
         event.getRegistry().register(ModItems.willowLeavesItemBlock.setRegistryName("willow_leaves"));
         event.getRegistry().register(ModItems.willowSaplingItemBlock.setRegistryName("willow_sapling"));
@@ -38,10 +66,13 @@ public class RegistryHandler {
         event.getRegistry().register(ModItems.poplarSaplingItemBlock.setRegistryName("poplar_sapling"));
         event.getRegistry().register(ModItems.poplarWoodItemBlock.setRegistryName("poplar_wood"));
         event.getRegistry().register(ModItems.combustibleIceItemBlock.setRegistryName("combustible_ice"));
+         */
+        registerMap.forEach((k, v) -> event.getRegistry().register(v.toItemBlock().setRegistryName(k)));
     }
 
     @SubscribeEvent
     public static void registerItemModel(ModelRegistryEvent event){
+        /*
         ModelLoader.setCustomModelResourceLocation(ModItems.willowWoodItemBlock,0,new ModelResourceLocation(ModItems.willowWoodItemBlock.getRegistryName(),"inventory"));
         ModelLoader.setCustomModelResourceLocation(ModItems.willowLeavesItemBlock,0,new ModelResourceLocation(ModItems.willowLeavesItemBlock.getRegistryName(),"inventory"));
         ModelLoader.setCustomModelResourceLocation(ModItems.willowSaplingItemBlock,0,new ModelResourceLocation(ModItems.willowSaplingItemBlock.getRegistryName(),"inventory"));
@@ -49,7 +80,10 @@ public class RegistryHandler {
         ModelLoader.setCustomModelResourceLocation(ModItems.poplarSaplingItemBlock,0,new ModelResourceLocation(ModItems.poplarSaplingItemBlock.getRegistryName(),"inventory"));
         ModelLoader.setCustomModelResourceLocation(ModItems.poplarWoodItemBlock,0,new ModelResourceLocation(ModItems.poplarWoodItemBlock.getRegistryName(),"inventory"));
         ModelLoader.setCustomModelResourceLocation(ModItems.combustibleIceItemBlock,0,new ModelResourceLocation(ModItems.combustibleIceItemBlock.getRegistryName(),"inventory"));
+        */
+        registerMap.forEach((k, v) -> ModelLoader.setCustomModelResourceLocation(v.toItemBlock(), 0, new ModelResourceLocation(v.getBlock().getRegistryName(), "inventory")));
     }
+
 
     @SubscribeEvent
     public static void onEntityRegistation(RegistryEvent.Register<EntityEntry> event) {

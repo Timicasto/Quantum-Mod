@@ -1,11 +1,9 @@
 package timicasto.quantumbase.block;
 
-import net.minecraft.block.BlockBush;
 import net.minecraft.block.IGrowable;
 import net.minecraft.block.properties.PropertyInteger;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
-import net.minecraft.client.resources.I18n;
 import net.minecraft.init.Blocks;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
@@ -13,18 +11,22 @@ import net.minecraft.world.World;
 import net.minecraft.world.gen.feature.WorldGenBigTree;
 import net.minecraft.world.gen.feature.WorldGenTrees;
 import net.minecraft.world.gen.feature.WorldGenerator;
+import net.minecraftforge.event.terraingen.TerrainGen;
+import timicasto.quantumbase.block.special.ModBlockBush;
 import timicasto.quantumbase.creative.TabLoader;
 import timicasto.quantumbase.environment.GenTree;
+import timicasto.quantumbase.utils.annotation.ManualRegisterConstructor;
 
 import java.util.Random;
 
-public class ModSaplings extends BlockBush implements IGrowable {
+public class BlockModSaplings extends ModBlockBush implements IGrowable {
     public static final PropertyInteger STAGE = PropertyInteger.create("stage", 0, 1);
 
     public int type;
 
-    public ModSaplings(int i) {
-        this.type=i;
+    @ManualRegisterConstructor
+    public BlockModSaplings(int i) {
+        this.type = i;
         this.setDefaultState(this.blockState.getBaseState().withProperty(STAGE,0));
         this.setRegistryName("willow_sapling");
         this.setUnlocalizedName("willow_sapling");
@@ -57,24 +59,22 @@ public class ModSaplings extends BlockBush implements IGrowable {
     }
 
     public void generateTree(World worldIn, BlockPos pos, IBlockState state, Random rand) {
-        if (!net.minecraftforge.event.terraingen.TerrainGen.saplingGrowTree(worldIn,rand,pos))
+        if (!TerrainGen.saplingGrowTree(worldIn,rand,pos)) {
             return;
-        WorldGenerator worldGenerator = rand.nextInt(10) == 0? new WorldGenBigTree(true) : new WorldGenTrees(true);
-        int i = 0;
-        int j = 0;
-        boolean flag = false;
-
-        switch (type) {
-            case 0:
-                worldGenerator = new GenTree().willowTree;
-                break;
         }
 
-        IBlockState iBlockState2 = Blocks.AIR.getDefaultState();
-        worldIn.setBlockState(pos,iBlockState2,4);
+        WorldGenerator worldGenerator;
 
-        if (!worldGenerator.generate(worldIn,rand,pos.add(i,0,j))) {
-            worldIn.setBlockState(pos,state,4);
+        if (type == 0) {
+            worldGenerator = new GenTree().willowTree;
+        } else {
+            worldGenerator = rand.nextInt(10) == 0? new WorldGenBigTree(true) : new WorldGenTrees(true);
+        }
+
+        worldIn.setBlockState(pos, Blocks.AIR.getDefaultState(), 4);
+
+        if (!worldGenerator.generate(worldIn, rand, pos)) {
+            worldIn.setBlockState(pos, state, 4);
         }
     }
 
@@ -111,5 +111,10 @@ public class ModSaplings extends BlockBush implements IGrowable {
     @Override
     protected BlockStateContainer createBlockState() {
         return new BlockStateContainer(this, STAGE);
+    }
+
+    @Override
+    public String name() {
+        return "willow_sapling";
     }
 }

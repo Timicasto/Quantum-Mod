@@ -1,16 +1,11 @@
 package timicasto.quantumbase.block;
 
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockIce;
-import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
-import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.BlockRenderLayer;
-import net.minecraft.util.EnumBlockRenderType;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.BlockPos;
@@ -21,23 +16,28 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import timicasto.quantumbase.ModItems;
+import timicasto.quantumbase.block.special.ModBlockIce;
 import timicasto.quantumbase.creative.TabLoader;
 import timicasto.quantumbase.entity.PrimedIce;
 
 import java.util.Random;
 
-public class CombustibleIce extends BlockIce {
-    private static Logger logger = LogManager.getLogger();
-    private EntityLivingBase igniter;
+public class BlockCombustibleIce extends ModBlockIce {
+    private static final Logger logger = LogManager.getLogger();
 
-    public CombustibleIce() {
+    public BlockCombustibleIce() {
         super();
         this.setRegistryName("combustible_ice");
         this.setUnlocalizedName("combustible_ice");
         this.setCreativeTab(TabLoader.envTab);
         this.setHardness(3.0F);
     }
-    
+
+    @Override
+    public String name() {
+        return "combustible_ice";
+    }
+
     @SideOnly(Side.CLIENT)
     public BlockRenderLayer getBlockLayer()
     {
@@ -69,7 +69,7 @@ public class CombustibleIce extends BlockIce {
         }
         if (b) {
             if (!worldIn.isRemote) {
-                PrimedIce primedIce = new PrimedIce(worldIn, (double)((float)pos.getX() + 0.5F), (double)pos.getY(), (double)((float)pos.getZ() + 0.5F), igniter);
+                PrimedIce primedIce = new PrimedIce(worldIn, (double)((float)pos.getX() + 0.5F), (double)pos.getY(), (double)((float)pos.getZ() + 0.5F), null);
                 worldIn.spawnEntity(primedIce);
                 logger.info("PrimedIce summonded");
             }
@@ -78,7 +78,7 @@ public class CombustibleIce extends BlockIce {
 
     public void onBlockDestroyedByExplosion(World worldIn, BlockPos pos, Explosion explosionIn) {
         if (!worldIn.isRemote) {
-            PrimedIce primedIce = new PrimedIce(worldIn, (double)((float)pos.getX() + 0.5F), (double)pos.getY(), (double)((float)pos.getZ() + 0.5F), igniter);
+            PrimedIce primedIce = new PrimedIce(worldIn, (double)((float)pos.getX() + 0.5F), (double)pos.getY(), (double)((float)pos.getZ() + 0.5F), null);
             worldIn.spawnEntity(primedIce);
             logger.info("PrimedIce summonded");
         }
@@ -88,7 +88,7 @@ public class CombustibleIce extends BlockIce {
         ItemStack itemstack = playerIn.getHeldItem(hand);
         if (!itemstack.isEmpty() && (itemstack.getItem() == Items.FLINT_AND_STEEL || itemstack.getItem() == Items.FIRE_CHARGE))
         {
-            PrimedIce primedIce = new PrimedIce(worldIn, (double)((float)pos.getX() + 0.5F), (double)pos.getY(), (double)((float)pos.getZ() + 0.5F), igniter);
+            PrimedIce primedIce = new PrimedIce(worldIn, (double)((float)pos.getX() + 0.5F), (double)pos.getY(), (double)((float)pos.getZ() + 0.5F), null);
             worldIn.spawnEntity(primedIce);
             logger.info("PrimedIce summonded");
 

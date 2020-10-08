@@ -20,19 +20,13 @@ public class GenTree implements IWorldGenerator {
 
     @Override
     public void generate(Random random, int chunkX, int chunkZ, World world, IChunkGenerator chunkGenerator, IChunkProvider chunkProvider) {
-        switch(world.provider.getDimension()) {
-            case 0: //Overworld
-                if(world.getBiomeForCoordsBody(new BlockPos(chunkX * 16, 70, chunkZ * 16)) instanceof BiomePlains) {
-                    populate(willowTree, world, random, chunkX, chunkZ, 2);
-                }
-                if(world.getBiomeForCoordsBody(new BlockPos(chunkX * 16,70,chunkZ * 16)) instanceof BiomeForest) {
-                    populate(poplarTree,world,random,chunkX,chunkZ,4);
-                }
-                break;
-            case -1: //Nether
-                break;
-            case 1: //End
-                break;
+        if (world.provider.getDimension() == 0) {
+            if (world.getBiomeForCoordsBody(new BlockPos(chunkX * 16, 70, chunkZ * 16)) instanceof BiomePlains) {
+                populate(willowTree, world, random, chunkX, chunkZ, 2);
+            }
+            if (world.getBiomeForCoordsBody(new BlockPos(chunkX * 16, 70, chunkZ * 16)) instanceof BiomeForest) {
+                populate(poplarTree, world, random, chunkX, chunkZ, 4);
+            }
         }
     }
 
