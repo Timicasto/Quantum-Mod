@@ -88,7 +88,7 @@ public class CombustibleIce extends Block {
         }
         else
         {
-            return onBlockActivated(worldIn, pos, state, playerIn, hand, facing, hitX, hitY, hitZ);
+            return false;
         }
     }
 }
