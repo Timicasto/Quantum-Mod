@@ -7,7 +7,7 @@ public class TabLoader {
     public static CreativeTabs envTab;
 
     public TabLoader(FMLPreInitializationEvent event) {
-        envTab = new EnvCreativeTab();
+        envTab = new CreativeTabEnvironment();
     }
 }
 

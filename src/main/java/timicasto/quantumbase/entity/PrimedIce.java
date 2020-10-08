@@ -45,7 +45,7 @@ public class PrimedIce extends EntityTNTPrimed {
     }
 
     /**
-     * returns if this entity triggers Block.onEntityWalking on the blocks they walk on. used for spiders and wolves to
+     * returns if this entity triggers BlockPoplarSapling.onEntityWalking on the blocks they walk on. used for spiders and wolves to
      * prevent them from trampling crops
      */
     @Override

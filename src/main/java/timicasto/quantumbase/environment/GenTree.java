@@ -9,14 +9,15 @@ import net.minecraft.world.gen.IChunkGenerator;
 import net.minecraft.world.gen.feature.WorldGenTrees;
 import net.minecraft.world.gen.feature.WorldGenerator;
 import net.minecraftforge.fml.common.IWorldGenerator;
-import timicasto.quantumbase.ModItems;
+import timicasto.quantumbase.QuantumBase;
+import timicasto.quantumbase.register.QuantumBaseBlocks;
 
 import java.util.Random;
 
 public class GenTree implements IWorldGenerator {
 
-    public WorldGenTrees willowTree = new WorldGenTrees(false, 6, ModItems.willowWood.getDefaultState(), ModItems.willowLeaves.getDefaultState(), false);
-    public WorldGenTrees poplarTree = new WorldGenTrees(false, 12, ModItems.poplarWood.getDefaultState(), ModItems.poplarLeaves.getDefaultState(), false);
+    public WorldGenTrees willowTree = new WorldGenTrees(false, 6, QuantumBaseBlocks.willowWood.getDefaultState(), QuantumBaseBlocks.willowLeaves.getDefaultState(), false);
+    public WorldGenTrees poplarTree = new WorldGenTrees(false, 12, QuantumBaseBlocks.poplarWood.getDefaultState(), QuantumBaseBlocks.poplarLeaves.getDefaultState(), false);
 
     @Override
     public void generate(Random random, int chunkX, int chunkZ, World world, IChunkGenerator chunkGenerator, IChunkProvider chunkProvider) {

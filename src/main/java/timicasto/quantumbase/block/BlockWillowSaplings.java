@@ -5,7 +5,6 @@ import net.minecraft.block.IGrowable;
 import net.minecraft.block.properties.PropertyInteger;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
-import net.minecraft.client.resources.I18n;
 import net.minecraft.init.Blocks;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
@@ -18,17 +17,16 @@ import timicasto.quantumbase.environment.GenTree;
 
 import java.util.Random;
 
-public class PoplarSaplings extends BlockBush implements IGrowable {
+public class BlockWillowSaplings extends BlockBush implements IGrowable {
     public static final PropertyInteger STAGE = PropertyInteger.create("stage", 0, 1);
 
     public int type;
 
-    public PoplarSaplings(int i) {
+    public BlockWillowSaplings(int i) {
         this.type=i;
         this.setDefaultState(this.blockState.getBaseState().withProperty(STAGE,0));
-        float f = 0.4F;
-        this.setRegistryName("poplar_sapling");
-        this.setUnlocalizedName("poplar_sapling");
+        this.setRegistryName("willow_sapling");
+        this.setUnlocalizedName("willow_sapling");
         this.setCreativeTab(TabLoader.envTab);
     }
 
@@ -67,7 +65,7 @@ public class PoplarSaplings extends BlockBush implements IGrowable {
 
         switch (type) {
             case 0:
-                worldGenerator = new GenTree().poplarTree;
+                worldGenerator = new GenTree().willowTree;
                 break;
         }
 
