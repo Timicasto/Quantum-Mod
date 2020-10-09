@@ -1,7 +1,9 @@
 package timicasto.quantumbase.utils;
 
 import net.minecraft.block.Block;
+import net.minecraft.item.Item;
 import timicasto.quantumbase.block.IModBlock;
+import timicasto.quantumbase.item.IModItem;
 import timicasto.quantumbase.utils.annotation.ManualRegisterConstructor;
 
 import java.lang.annotation.Annotation;
@@ -24,27 +26,53 @@ public class ReflectionUtil {
         List<String> clazzNames = new ArrayList<>();
         try {
             Enumeration<URL> urls = Thread.currentThread().getContextClassLoader().getResources(pkg.replaceAll("\\.", "/"));
-            while (urls.hasMoreElements()) {
-                URL url = urls.nextElement();
-                try {
-                 JarFile jf = ((JarURLConnection) url.openConnection()).getJarFile();
-                 jf.stream()
-                         .filter((v) -> !v.isDirectory() && v.getName().endsWith(CLASS_SUFFIX))
-                         .forEach((v) -> {
-                     String name = v.getName().replace(CLASS_SUFFIX, "").replace("/", ".");
-                     if (name.startsWith(pkg)) {
-                         clazzNames.add(name);
-                     }
-                 });
-
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            }
+            listClasses(pkg, clazzNames, urls);
         } catch (Exception ignored) {
         }
 
         return clazzNames;
+    }
+
+    public static List<String> listPkgClassesAt(String pkg, Class clazz) {
+        List<String> clazzNames = new ArrayList<>();
+        try {
+            Enumeration<URL> urls = clazz.getClassLoader().getResources(pkg.replaceAll("\\.", "/"));
+            listClasses(pkg, clazzNames, urls);
+        } catch (Exception ignored) {
+        }
+
+        return clazzNames;
+    }
+
+    public static List<String> listPkgClassesAt(String pkg, Thread thread) {
+        List<String> clazzNames = new ArrayList<>();
+        try {
+            Enumeration<URL> urls = thread.getContextClassLoader().getResources(pkg.replaceAll("\\.", "/"));
+            listClasses(pkg, clazzNames, urls);
+        } catch (Exception ignored) {
+        }
+
+        return clazzNames;
+    }
+
+    private static void listClasses(String pkg, List<String> clazzNames, Enumeration<URL> urls) {
+        while (urls.hasMoreElements()) {
+            URL url = urls.nextElement();
+            try {
+                JarFile jf = ((JarURLConnection) url.openConnection()).getJarFile();
+                jf.stream()
+                        .filter((v) -> !v.isDirectory() && v.getName().endsWith(CLASS_SUFFIX))
+                        .forEach((v) -> {
+                            String name = v.getName().replace(CLASS_SUFFIX, "").replace("/", ".");
+                            if (name.startsWith(pkg)) {
+                                clazzNames.add(name);
+                            }
+                        });
+
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
     }
 
     public static IModBlock<? extends Block> initBlockClass(String clazzName) {
@@ -52,6 +80,21 @@ public class ReflectionUtil {
             Class<? extends IModBlock<? extends Block>> clazz = (Class<? extends IModBlock<? extends Block>>) Class.forName(clazzName);
             if(clazz.isInterface()) { return null; }
             Constructor<? extends IModBlock<? extends Block>> constructor =  clazz.getDeclaredConstructor();
+            for (Annotation annotation : constructor.getAnnotations()) {
+                if(annotation instanceof ManualRegisterConstructor) {
+                    return null;
+                }
+            }
+            return constructor.newInstance();
+        } catch (Exception ignored) { }
+        return null;
+    }
+
+    public static IModItem<? extends Item> initItemClass(String clazzName) {
+        try{
+            Class<? extends IModItem<? extends Item>> clazz = (Class<? extends IModItem<? extends Item>>) Class.forName(clazzName);
+            if(clazz.isInterface()) { return null; }
+            Constructor<? extends IModItem<? extends Item>> constructor =  clazz.getDeclaredConstructor();
             for (Annotation annotation : constructor.getAnnotations()) {
                 if(annotation instanceof ManualRegisterConstructor) {
                     return null;

@@ -26,16 +26,10 @@ public class BlockCombustibleIce extends ModBlockIce {
     private static final Logger logger = LogManager.getLogger();
 
     public BlockCombustibleIce() {
-        super();
-        this.setRegistryName("combustible_ice");
+        super("combustible_ice");
         this.setUnlocalizedName("combustible_ice");
         this.setCreativeTab(TabLoader.envTab);
         this.setHardness(3.0F);
-    }
-
-    @Override
-    public String name() {
-        return "combustible_ice";
     }
 
     @SideOnly(Side.CLIENT)

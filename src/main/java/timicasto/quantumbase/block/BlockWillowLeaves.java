@@ -13,8 +13,7 @@ import timicasto.quantumbase.creative.TabLoader;
 public class BlockWillowLeaves extends ModBlock {
 
     public BlockWillowLeaves() {
-        super(Material.LEAVES);
-        this.setRegistryName("willow_leaves");
+        super(Material.LEAVES, "willow_leaves");
         this.setUnlocalizedName("willow_leaves");
         this.setCreativeTab(TabLoader.envTab);
         this.setHardness(0.2F);
@@ -26,10 +25,5 @@ public class BlockWillowLeaves extends ModBlock {
     @Override
     public void getDrops(NonNullList<ItemStack> drops, IBlockAccess blockAccess,BlockPos pos,IBlockState state, int fortune) {
         new ItemStack(ModItems.willowSaplingItemBlock);
-    }
-
-    @Override
-    public String name() {
-        return "willow_leaves";
     }
 }
