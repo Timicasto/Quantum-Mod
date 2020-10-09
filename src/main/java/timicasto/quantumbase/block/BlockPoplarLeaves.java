@@ -13,8 +13,7 @@ import timicasto.quantumbase.creative.TabLoader;
 public class BlockPoplarLeaves extends ModBlock {
 
     public BlockPoplarLeaves() {
-        super(Material.LEAVES);
-        this.setRegistryName("poplar_leaves");
+        super(Material.LEAVES, "poplar_leaves");
         this.setUnlocalizedName("poplar_leaves");
         this.setCreativeTab(TabLoader.envTab);
         this.setHardness(0.2F);

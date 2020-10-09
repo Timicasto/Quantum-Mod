@@ -23,18 +23,15 @@ import java.util.Random;
 
 public class BlockPoplarSaplings extends ModBlockBush implements IGrowable {
     public static final PropertyInteger STAGE = PropertyInteger.create("stage", 0, 1);
-    private final Item itemBlock;
-
     public int type;
 
     @ManualRegisterConstructor
     public BlockPoplarSaplings(int i) {
+        super("poplar_sapling");
         this.type = i;
         this.setDefaultState(this.blockState.getBaseState().withProperty(STAGE,0));
-        this.setRegistryName("poplar_sapling");
         this.setUnlocalizedName("poplar_sapling");
         this.setCreativeTab(TabLoader.envTab);
-        this.itemBlock = new ItemBlock(this);
     }
 
     @Override
@@ -112,10 +109,5 @@ public class BlockPoplarSaplings extends ModBlockBush implements IGrowable {
     @Override
     protected BlockStateContainer createBlockState() {
         return new BlockStateContainer(this, STAGE);
-    }
-
-    @Override
-    public String name() {
-        return "poplar_sapling";
     }
 }

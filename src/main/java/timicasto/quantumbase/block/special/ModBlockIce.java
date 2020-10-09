@@ -4,14 +4,18 @@ import net.minecraft.block.BlockIce;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
+import timicasto.quantumbase.RegistryHandler;
 import timicasto.quantumbase.block.IModBlock;
+import timicasto.quantumbase.utils.annotation.NotNull;
 
 public abstract class ModBlockIce extends BlockIce implements IModBlock<BlockIce> {
-    private final Item itemBlock;
+    private final ItemBlock itemBlock;
+    private static @NotNull String name;
 
-    protected ModBlockIce() {
+    protected ModBlockIce(@NotNull String registerName) {
         super();
         itemBlock = new ItemBlock(this);
+        name = registerName;
     }
 
     @Override
@@ -20,15 +24,25 @@ public abstract class ModBlockIce extends BlockIce implements IModBlock<BlockIce
     }
 
     @Override
-    public Item toItemBlock() {
+    public ItemBlock toItemBlock() {
         return itemBlock;
     }
 
     @Override
-    public abstract String name();
+    public String name() {
+        return name;
+    }
 
     @Override
     public BlockIce getBlock() {
         return this;
+    }
+
+    public static ModBlockIce get() {
+        return (ModBlockIce) RegistryHandler.getBlock(name).getBlock();
+    }
+
+    public static ItemBlock getItemBlock() {
+        return RegistryHandler.getItemBlock(name);
     }
 }

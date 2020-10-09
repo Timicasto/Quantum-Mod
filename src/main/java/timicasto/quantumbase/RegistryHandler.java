@@ -3,6 +3,7 @@ package timicasto.quantumbase;
 import net.minecraft.block.Block;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemBlock;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.event.ModelRegistryEvent;
 import net.minecraftforge.client.model.ModelLoader;
@@ -13,24 +14,25 @@ import net.minecraftforge.fml.common.registry.EntityEntry;
 import net.minecraftforge.fml.common.registry.EntityEntryBuilder;
 import org.apache.logging.log4j.LogManager;
 import timicasto.quantumbase.block.BlockModSaplings;
-import timicasto.quantumbase.block.BlockPoplarSaplings;
 import timicasto.quantumbase.block.IModBlock;
 import timicasto.quantumbase.entity.PrimedIce;
+import timicasto.quantumbase.item.IModItem;
 import timicasto.quantumbase.utils.ReflectionUtil;
 
 import java.util.HashMap;
 
 @Mod.EventBusSubscriber
 public class RegistryHandler {
-    private static final HashMap<String, IModBlock<? extends Block>> registerMap = new HashMap<>();
+    private static final HashMap<String, IModBlock<? extends Block>> blockRegisterMap = new HashMap<>();
+    private static final HashMap<String, IModItem<? extends Item>> itemRegisterMap = new HashMap<>();
 
     {
-        //ecial constructor need manual register
+        //special constructor need manual register
         IModBlock<? extends Block> b0 = new BlockModSaplings(0);
-        registerMap.put(b0.name(), b0);
+        blockRegisterMap.put(b0.name(), b0);
 
         IModBlock<? extends Block> b1 = new BlockModSaplings(0);
-        registerMap.put(b1.name(), b1);
+        blockRegisterMap.put(b1.name(), b1);
     }
 
     @SubscribeEvent
@@ -46,11 +48,10 @@ public class RegistryHandler {
          */
 
         ReflectionUtil.listPkgClasses("timicasto.quantumbase.block").forEach((v) -> {
-            LogManager.getLogger().info(v);
             IModBlock<? extends Block> block = ReflectionUtil.initBlockClass(v);
             if(block != null) {
                 event.getRegistry().register(block.getBlock());
-                registerMap.put(block.name(), block);
+                blockRegisterMap.put(block.name(), block);
             }
         });
 
@@ -67,7 +68,14 @@ public class RegistryHandler {
         event.getRegistry().register(ModItems.poplarWoodItemBlock.setRegistryName("poplar_wood"));
         event.getRegistry().register(ModItems.combustibleIceItemBlock.setRegistryName("combustible_ice"));
          */
-        registerMap.forEach((k, v) -> event.getRegistry().register(v.toItemBlock().setRegistryName(k)));
+        blockRegisterMap.forEach((k, v) -> event.getRegistry().register(v.toItemBlock().setRegistryName(k)));
+        ReflectionUtil.listPkgClasses("timicasto.quantumbase.block").forEach((v) -> {
+            IModItem<? extends Item> item = ReflectionUtil.initItemClass(v);
+            if(item != null) {
+                event.getRegistry().register(item.getItem());
+                itemRegisterMap.put(item.name(), item);
+            }
+        });
     }
 
     @SubscribeEvent
@@ -81,7 +89,7 @@ public class RegistryHandler {
         ModelLoader.setCustomModelResourceLocation(ModItems.poplarWoodItemBlock,0,new ModelResourceLocation(ModItems.poplarWoodItemBlock.getRegistryName(),"inventory"));
         ModelLoader.setCustomModelResourceLocation(ModItems.combustibleIceItemBlock,0,new ModelResourceLocation(ModItems.combustibleIceItemBlock.getRegistryName(),"inventory"));
         */
-        registerMap.forEach((k, v) -> ModelLoader.setCustomModelResourceLocation(v.toItemBlock(), 0, new ModelResourceLocation(v.getBlock().getRegistryName(), "inventory")));
+        blockRegisterMap.forEach((k, v) -> ModelLoader.setCustomModelResourceLocation(v.toItemBlock(), 0, new ModelResourceLocation(v.getBlock().getRegistryName(), "inventory")));
     }
 
 
@@ -94,5 +102,17 @@ public class RegistryHandler {
                 .tracker(80, 3, false)
                 .build()
         );
+    }
+
+    public static IModBlock<? extends Block> getBlock(String registerName) {
+        return blockRegisterMap.get(registerName);
+    }
+
+    public static IModItem<? extends Item> getItem(String registerName) {
+        return itemRegisterMap.get(registerName);
+    }
+
+    public static ItemBlock getItemBlock(String registerName) {
+        return blockRegisterMap.containsKey(registerName) ? blockRegisterMap.get(registerName).toItemBlock() : itemRegisterMap.get(registerName).getItemBlock();
     }
 }

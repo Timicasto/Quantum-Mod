@@ -21,14 +21,13 @@ import java.util.Random;
 
 public class BlockModSaplings extends ModBlockBush implements IGrowable {
     public static final PropertyInteger STAGE = PropertyInteger.create("stage", 0, 1);
-
     public int type;
 
     @ManualRegisterConstructor
     public BlockModSaplings(int i) {
+        super("willow_sapling");
         this.type = i;
         this.setDefaultState(this.blockState.getBaseState().withProperty(STAGE,0));
-        this.setRegistryName("willow_sapling");
         this.setUnlocalizedName("willow_sapling");
         this.setCreativeTab(TabLoader.envTab);
     }
@@ -111,10 +110,5 @@ public class BlockModSaplings extends ModBlockBush implements IGrowable {
     @Override
     protected BlockStateContainer createBlockState() {
         return new BlockStateContainer(this, STAGE);
-    }
-
-    @Override
-    public String name() {
-        return "willow_sapling";
     }
 }
