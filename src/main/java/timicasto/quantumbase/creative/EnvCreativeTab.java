@@ -2,7 +2,7 @@ package timicasto.quantumbase.creative;
 
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.ItemStack;
-import timicasto.quantumbase.ModItems;
+import timicasto.quantumbase.block.BlockWillowWood;
 
 public class EnvCreativeTab extends CreativeTabs {
 
@@ -12,6 +12,6 @@ public class EnvCreativeTab extends CreativeTabs {
 
     @Override
     public ItemStack getTabIconItem() {
-        return new ItemStack(ModItems.willowWood);
+        return new ItemStack(BlockWillowWood.get());
     }
 }

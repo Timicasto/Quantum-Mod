@@ -7,7 +7,6 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.NonNullList;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
-import timicasto.quantumbase.ModItems;
 import timicasto.quantumbase.creative.TabLoader;
 
 public class BlockWillowLeaves extends ModBlock {
@@ -24,6 +23,6 @@ public class BlockWillowLeaves extends ModBlock {
 
     @Override
     public void getDrops(NonNullList<ItemStack> drops, IBlockAccess blockAccess,BlockPos pos,IBlockState state, int fortune) {
-        new ItemStack(ModItems.willowSaplingItemBlock);
+        new ItemStack(BlockWillowSaplings.get());
     }
 }

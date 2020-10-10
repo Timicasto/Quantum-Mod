@@ -3,7 +3,6 @@ package timicasto.quantumbase.fluid;
 import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
-import timicasto.quantumbase.ModItems;
 
 /* public class FluidLoader {
 

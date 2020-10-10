@@ -2,12 +2,15 @@ package timicasto.quantumbase.utils;
 
 import net.minecraft.block.Block;
 import net.minecraft.item.Item;
+import timicasto.quantumbase.RegistryHandler;
 import timicasto.quantumbase.block.IModBlock;
 import timicasto.quantumbase.item.IModItem;
 import timicasto.quantumbase.utils.annotation.ManualRegisterConstructor;
+import timicasto.quantumbase.utils.annotation.OverrideDefaultItemBlock;
 
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Constructor;
+import java.lang.reflect.Field;
 import java.net.JarURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
@@ -21,6 +24,7 @@ import java.util.jar.JarFile;
  */
 public class ReflectionUtil {
     private static final String CLASS_SUFFIX = ".class";
+    private static final ArrayList<String> alreadyInitClasses = new ArrayList<>();
 
     public static List<String> listPkgClasses(String pkg) {
         List<String> clazzNames = new ArrayList<>();
@@ -64,7 +68,7 @@ public class ReflectionUtil {
                         .filter((v) -> !v.isDirectory() && v.getName().endsWith(CLASS_SUFFIX))
                         .forEach((v) -> {
                             String name = v.getName().replace(CLASS_SUFFIX, "").replace("/", ".");
-                            if (name.startsWith(pkg)) {
+                            if (name.startsWith(pkg) && !alreadyInitClasses.contains(name)) {
                                 clazzNames.add(name);
                             }
                         });
@@ -76,6 +80,10 @@ public class ReflectionUtil {
     }
 
     public static IModBlock<? extends Block> initBlockClass(String clazzName) {
+        if (alreadyInitClasses.contains(clazzName)) {
+            return null;
+        }
+
         try{
             Class<? extends IModBlock<? extends Block>> clazz = (Class<? extends IModBlock<? extends Block>>) Class.forName(clazzName);
             if(clazz.isInterface()) { return null; }
@@ -83,6 +91,16 @@ public class ReflectionUtil {
             for (Annotation annotation : constructor.getAnnotations()) {
                 if(annotation instanceof ManualRegisterConstructor) {
                     return null;
+                } else if (annotation instanceof OverrideDefaultItemBlock) {
+                    Field itemBlockVar = clazz.getDeclaredField(((OverrideDefaultItemBlock) annotation).fieldName());
+                    IModItem<? extends Item> item = initItemClass(((OverrideDefaultItemBlock) annotation).clazz());
+                    if(item.getItemBlock() == null) {
+                        throw new IllegalArgumentException("Error while set custom ItemBlock! Target IModItem isn`t ModItemBlock`s instance! class: " + clazzName);
+                    }
+                    itemBlockVar.setAccessible(true);
+                    itemBlockVar.set(clazz, item.getItemBlock());
+                    alreadyInitClasses.add(((OverrideDefaultItemBlock) annotation).clazz());
+                    RegistryHandler.putModItem(item);
                 }
             }
             return constructor.newInstance();
@@ -91,6 +109,10 @@ public class ReflectionUtil {
     }
 
     public static IModItem<? extends Item> initItemClass(String clazzName) {
+        if (alreadyInitClasses.contains(clazzName)) {
+            return null;
+        }
+
         try{
             Class<? extends IModItem<? extends Item>> clazz = (Class<? extends IModItem<? extends Item>>) Class.forName(clazzName);
             if(clazz.isInterface()) { return null; }
@@ -124,5 +146,9 @@ public class ReflectionUtil {
                 }
             }
         }
+    }
+
+    public static void addIgnoreClass(String clazz) {
+        alreadyInitClasses.add(clazz);
     }
 }

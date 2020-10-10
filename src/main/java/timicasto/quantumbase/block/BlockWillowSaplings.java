@@ -19,12 +19,12 @@ import timicasto.quantumbase.utils.annotation.ManualRegisterConstructor;
 
 import java.util.Random;
 
-public class BlockModSaplings extends ModBlockBush implements IGrowable {
+public class BlockWillowSaplings extends ModBlockBush implements IGrowable {
     public static final PropertyInteger STAGE = PropertyInteger.create("stage", 0, 1);
     public int type;
 
     @ManualRegisterConstructor
-    public BlockModSaplings(int i) {
+    public BlockWillowSaplings(int i) {
         super("willow_sapling");
         this.type = i;
         this.setDefaultState(this.blockState.getBaseState().withProperty(STAGE,0));

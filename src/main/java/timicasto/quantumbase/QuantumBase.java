@@ -1,9 +1,6 @@
 package timicasto.quantumbase;
 
 
-import net.minecraft.creativetab.CreativeTabs;
-import net.minecraftforge.fluids.Fluid;
-import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.SidedProxy;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
@@ -11,7 +8,6 @@ import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import org.apache.logging.log4j.Logger;
-import timicasto.quantumbase.creative.EnvCreativeTab;
 import timicasto.quantumbase.environment.GenTree;
 // import timicasto.quantumbase.fluid.LiquidPetroleum;
 import timicasto.quantumbase.environment.WorldGenCustomStructure;
@@ -40,8 +36,7 @@ public class QuantumBase {
         instance = this;
         proxy.preInit(event);
         logger = event.getModLog();
-        GameRegistry.registerWorldGenerator(new GenTree(),3);
-        GameRegistry.registerWorldGenerator(new WorldGenCustomStructure(),0);
+
     }
 
     @Mod.EventHandler
@@ -56,6 +51,8 @@ public class QuantumBase {
     public void postInit(FMLPostInitializationEvent event)
     {
         proxy.postInit(event);
+        GameRegistry.registerWorldGenerator(new GenTree(),3);
+        GameRegistry.registerWorldGenerator(new WorldGenCustomStructure(),0);
     }
 
 

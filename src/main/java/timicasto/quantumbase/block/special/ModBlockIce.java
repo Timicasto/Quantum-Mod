@@ -14,7 +14,8 @@ public abstract class ModBlockIce extends BlockIce implements IModBlock<BlockIce
 
     protected ModBlockIce(@NotNull String registerName) {
         super();
-        itemBlock = new ItemBlock(this);
+        this.setRegistryName(registerName);
+        itemBlock = (ItemBlock) new ItemBlock(this).setRegistryName(registerName);
         name = registerName;
     }
 

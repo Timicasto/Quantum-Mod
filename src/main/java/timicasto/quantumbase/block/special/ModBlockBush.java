@@ -16,7 +16,8 @@ public abstract class ModBlockBush extends BlockBush implements IModBlock<BlockB
 
     protected ModBlockBush(Material material, MapColor mapColor, @NotNull String registerName) {
         super(material, mapColor);
-        itemBlock = new ItemBlock(this);
+        this.setRegistryName(registerName);
+        itemBlock = (ItemBlock) new ItemBlock(this).setRegistryName(registerName);
         name = registerName;
     }
 
