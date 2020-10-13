@@ -8,7 +8,6 @@ import net.minecraft.world.World;
 import net.minecraft.world.gen.feature.WorldGenerator;
 import net.minecraft.world.gen.structure.template.Template;
 import net.minecraft.world.gen.structure.template.TemplateManager;
-import timicasto.quantumbase.ModItems;
 import timicasto.quantumbase.utils.IStructure;
 
 import java.util.Random;

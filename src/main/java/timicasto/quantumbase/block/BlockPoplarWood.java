@@ -5,8 +5,8 @@ import net.minecraft.block.material.Material;
 import net.minecraft.client.resources.I18n;
 import timicasto.quantumbase.creative.TabLoader;
 
-public class PoplarWood extends Block {
-    public PoplarWood() {
+public class BlockPoplarWood extends Block {
+    public BlockPoplarWood() {
         super(Material.WOOD);
         this.setRegistryName("poplar_wood");
         this.setUnlocalizedName("poplar_wood");
