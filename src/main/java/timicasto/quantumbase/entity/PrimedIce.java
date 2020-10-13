@@ -25,7 +25,7 @@ public class PrimedIce extends EntityTNTPrimed {
         super(worldIn);
     }
 
-    public PrimedIce(World worldIn, double x, double y, double z, @Nullable EntityLivingBase igniter) {
+    public PrimedIce(World worldIn, double x, double y, double z, EntityLivingBase igniter) {
         this(worldIn);
         this.setPosition(x, y, z);
         float f = (float)(Math.random() * (Math.PI * 2D));
@@ -41,7 +41,7 @@ public class PrimedIce extends EntityTNTPrimed {
 
     @Override
     protected void entityInit() {
-        this.dataManager.register(FUSE, 80);
+        this.dataManager.register(FUSE, Integer.valueOf(80));
     }
 
     /**
@@ -157,7 +157,7 @@ public class PrimedIce extends EntityTNTPrimed {
      */
     @Override
     public int getFuseDataManager() {
-        return (Integer) this.dataManager.get(FUSE);
+        return ((Integer)this.dataManager.get(FUSE)).intValue();
     }
 
     @Override

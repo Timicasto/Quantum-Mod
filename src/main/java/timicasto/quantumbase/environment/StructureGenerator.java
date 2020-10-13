@@ -8,6 +8,7 @@ import net.minecraft.world.World;
 import net.minecraft.world.gen.feature.WorldGenerator;
 import net.minecraft.world.gen.structure.template.Template;
 import net.minecraft.world.gen.structure.template.TemplateManager;
+import timicasto.quantumbase.ModItems;
 import timicasto.quantumbase.utils.IStructure;
 
 import java.util.Random;
@@ -16,13 +17,13 @@ public class StructureGenerator extends WorldGenerator implements IStructure {
     public static String structureName;
 
     public StructureGenerator(String name) {
-        structureName = name;
+        this.structureName = name;
 
     }
 
     @Override
     public boolean generate(World worldIn, Random rand, BlockPos position) {
-        generateStructure(worldIn, position);
+        this.generateStructure(worldIn, position);
         return true;
     }
 

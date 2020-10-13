@@ -1,9 +1,11 @@
 package timicasto.quantumbase.block;
 
+import net.minecraft.block.BlockBush;
 import net.minecraft.block.IGrowable;
 import net.minecraft.block.properties.PropertyInteger;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.client.resources.I18n;
 import net.minecraft.init.Blocks;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
@@ -11,23 +13,21 @@ import net.minecraft.world.World;
 import net.minecraft.world.gen.feature.WorldGenBigTree;
 import net.minecraft.world.gen.feature.WorldGenTrees;
 import net.minecraft.world.gen.feature.WorldGenerator;
-import net.minecraftforge.event.terraingen.TerrainGen;
-import timicasto.quantumbase.block.special.ModBlockBush;
 import timicasto.quantumbase.creative.TabLoader;
 import timicasto.quantumbase.environment.GenTree;
-import timicasto.quantumbase.utils.annotation.ManualRegisterConstructor;
 
 import java.util.Random;
 
-public class BlockPoplarSaplings extends ModBlockBush implements IGrowable {
+public class PoplarSaplings extends BlockBush implements IGrowable {
     public static final PropertyInteger STAGE = PropertyInteger.create("stage", 0, 1);
+
     public int type;
 
-    @ManualRegisterConstructor
-    public BlockPoplarSaplings(int i) {
-        super("poplar_sapling");
-        this.type = i;
+    public PoplarSaplings(int i) {
+        this.type=i;
         this.setDefaultState(this.blockState.getBaseState().withProperty(STAGE,0));
+        float f = 0.4F;
+        this.setRegistryName("poplar_sapling");
         this.setUnlocalizedName("poplar_sapling");
         this.setCreativeTab(TabLoader.envTab);
     }
@@ -58,19 +58,24 @@ public class BlockPoplarSaplings extends ModBlockBush implements IGrowable {
     }
 
     public void generateTree(World worldIn, BlockPos pos, IBlockState state, Random rand) {
-        if (!TerrainGen.saplingGrowTree(worldIn,rand,pos)) {
+        if (!net.minecraftforge.event.terraingen.TerrainGen.saplingGrowTree(worldIn,rand,pos))
             return;
-        }
-        WorldGenerator worldGenerator;
-        if (type == 0) {
-            worldGenerator = new GenTree().poplarTree;
-        } else {
-            worldGenerator = rand.nextInt(10) == 0 ? new WorldGenBigTree(true) : new WorldGenTrees(true);
-        }
-        worldIn.setBlockState(pos, Blocks.AIR.getDefaultState(), 4);
+        WorldGenerator worldGenerator = rand.nextInt(10) == 0? new WorldGenBigTree(true) : new WorldGenTrees(true);
+        int i = 0;
+        int j = 0;
+        boolean flag = false;
 
-        if (!worldGenerator.generate(worldIn, rand, pos)) {
-            worldIn.setBlockState(pos, state, 4);
+        switch (type) {
+            case 0:
+                worldGenerator = new GenTree().poplarTree;
+                break;
+        }
+
+        IBlockState iBlockState2 = Blocks.AIR.getDefaultState();
+        worldIn.setBlockState(pos,iBlockState2,4);
+
+        if (!worldGenerator.generate(worldIn,rand,pos.add(i,0,j))) {
+            worldIn.setBlockState(pos,state,4);
         }
     }
 

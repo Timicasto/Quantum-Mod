@@ -9,26 +9,30 @@ import net.minecraft.world.gen.IChunkGenerator;
 import net.minecraft.world.gen.feature.WorldGenTrees;
 import net.minecraft.world.gen.feature.WorldGenerator;
 import net.minecraftforge.fml.common.IWorldGenerator;
-import timicasto.quantumbase.block.BlockPoplarLeaves;
-import timicasto.quantumbase.block.BlockWillowLeaves;
-import timicasto.quantumbase.block.BlockWillowWood;
+import timicasto.quantumbase.ModItems;
 
 import java.util.Random;
 
 public class GenTree implements IWorldGenerator {
 
-    public WorldGenTrees willowTree = new WorldGenTrees(false, 6, BlockWillowWood.get().getDefaultState(), BlockWillowLeaves.get().getDefaultState(), false);
-    public WorldGenTrees poplarTree = new WorldGenTrees(false, 12, BlockPoplarLeaves.get().getDefaultState(), BlockPoplarLeaves.get().getDefaultState(), false);
+    public WorldGenTrees willowTree = new WorldGenTrees(false, 6, ModItems.willowWood.getDefaultState(), ModItems.willowLeaves.getDefaultState(), false);
+    public WorldGenTrees poplarTree = new WorldGenTrees(false, 12, ModItems.poplarWood.getDefaultState(), ModItems.poplarLeaves.getDefaultState(), false);
 
     @Override
     public void generate(Random random, int chunkX, int chunkZ, World world, IChunkGenerator chunkGenerator, IChunkProvider chunkProvider) {
-        if (world.provider.getDimension() == 0) {
-            if (world.getBiomeForCoordsBody(new BlockPos(chunkX * 16, 70, chunkZ * 16)) instanceof BiomePlains) {
-                populate(willowTree, world, random, chunkX, chunkZ, 2);
-            }
-            if (world.getBiomeForCoordsBody(new BlockPos(chunkX * 16, 70, chunkZ * 16)) instanceof BiomeForest) {
-                populate(poplarTree, world, random, chunkX, chunkZ, 4);
-            }
+        switch(world.provider.getDimension()) {
+            case 0: //Overworld
+                if(world.getBiomeForCoordsBody(new BlockPos(chunkX * 16, 70, chunkZ * 16)) instanceof BiomePlains) {
+                    populate(willowTree, world, random, chunkX, chunkZ, 2);
+                }
+                if(world.getBiomeForCoordsBody(new BlockPos(chunkX * 16,70,chunkZ * 16)) instanceof BiomeForest) {
+                    populate(poplarTree,world,random,chunkX,chunkZ,4);
+                }
+                break;
+            case -1: //Nether
+                break;
+            case 1: //End
+                break;
         }
     }
 
