@@ -1,9 +1,7 @@
 package timicasto.quantumbase;
 
-import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.entity.Render;
 import net.minecraft.client.renderer.entity.RenderManager;
-import net.minecraft.world.World;
 import net.minecraftforge.fml.client.registry.IRenderFactory;
 import timicasto.quantumbase.entity.PrimedIce;
 import timicasto.quantumbase.entity.RenderPrimedIce;

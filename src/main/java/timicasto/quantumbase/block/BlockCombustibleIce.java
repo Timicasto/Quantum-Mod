@@ -2,7 +2,7 @@ package timicasto.quantumbase.block;
 
 import net.minecraft.block.BlockIce;
 import net.minecraft.block.state.IBlockState;
-import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.client.Minecraft;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
@@ -22,7 +22,7 @@ import java.util.Random;
 
 public class BlockCombustibleIce extends BlockIce {
     private static Logger logger = LogManager.getLogger();
-    private EntityLivingBase igniter;
+    private static final Random rnd = new Random();
 
     public BlockCombustibleIce() {
         super();
@@ -45,41 +45,28 @@ public class BlockCombustibleIce extends BlockIce {
     public ItemStack getSilkTouchDrop(IBlockState state) {
         return new ItemStack(QuantumBaseBlocks.combustibleIceItemBlock,1);
     }
-
+    
     public void onBlockDestroyedByPlayer(World worldIn, BlockPos pos, IBlockState state) {
-
-        boolean b = new Random().nextBoolean();
-        if (b) {
-            logger.info("blow");
-        }
-        if (!b) {
-            logger.info("safe");
-        }
-        if (b) {
+        if (rnd.nextBoolean() && !Minecraft.getMinecraft().player.isCreative()) {
             if (!worldIn.isRemote) {
-                PrimedIce primedIce = new PrimedIce(worldIn, (double)((float)pos.getX() + 0.5F), (double)pos.getY(), (double)((float)pos.getZ() + 0.5F), igniter);
+                PrimedIce primedIce = new PrimedIce(worldIn, (float) pos.getX() + 0.5F, pos.getY(), (float) pos.getZ() + 0.5F, null);
                 worldIn.spawnEntity(primedIce);
-                logger.info("PrimedIce summonded");
             }
         }
     }
-
+    
     public void onBlockDestroyedByExplosion(World worldIn, BlockPos pos, Explosion explosionIn) {
         if (!worldIn.isRemote) {
-            PrimedIce primedIce = new PrimedIce(worldIn, (double)((float)pos.getX() + 0.5F), (double)pos.getY(), (double)((float)pos.getZ() + 0.5F), igniter);
+            PrimedIce primedIce = new PrimedIce(worldIn, (float) pos.getX() + 0.5F, pos.getY(), (float) pos.getZ() + 0.5F, null);
             worldIn.spawnEntity(primedIce);
-            logger.info("PrimedIce summonded");
         }
     }
-
+    
     public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ){
         ItemStack itemstack = playerIn.getHeldItem(hand);
-        if (!itemstack.isEmpty() && (itemstack.getItem() == Items.FLINT_AND_STEEL || itemstack.getItem() == Items.FIRE_CHARGE))
-        {
-            PrimedIce primedIce = new PrimedIce(worldIn, (double)((float)pos.getX() + 0.5F), (double)pos.getY(), (double)((float)pos.getZ() + 0.5F), igniter);
+        if (!itemstack.isEmpty() && (itemstack.getItem() == Items.FLINT_AND_STEEL || itemstack.getItem() == Items.FIRE_CHARGE)) {
+            PrimedIce primedIce = new PrimedIce(worldIn, (float) pos.getX() + 0.5F, pos.getY(), (float) pos.getZ() + 0.5F, null);
             worldIn.spawnEntity(primedIce);
-            logger.info("PrimedIce summonded");
-
             return true;
         }
         else

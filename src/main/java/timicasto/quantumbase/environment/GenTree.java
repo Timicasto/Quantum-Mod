@@ -9,7 +9,6 @@ import net.minecraft.world.gen.IChunkGenerator;
 import net.minecraft.world.gen.feature.WorldGenTrees;
 import net.minecraft.world.gen.feature.WorldGenerator;
 import net.minecraftforge.fml.common.IWorldGenerator;
-import timicasto.quantumbase.QuantumBase;
 import timicasto.quantumbase.register.QuantumBaseBlocks;
 
 import java.util.Random;

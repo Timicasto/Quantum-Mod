@@ -1,6 +1,6 @@
 {
 	"parent": "item/generated",
 	"textures": {
-		"layer0": "quantumbase:items/combustible_ice"
+		"layer0": "quantumbase:items/combustible_ice_item"
 	}
 }

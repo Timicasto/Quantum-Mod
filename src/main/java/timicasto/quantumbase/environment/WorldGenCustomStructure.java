@@ -4,16 +4,12 @@ import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
-import net.minecraft.world.biome.Biome;
 import net.minecraft.world.biome.BiomeOcean;
-import net.minecraft.world.biome.BiomePlains;
 import net.minecraft.world.chunk.IChunkProvider;
 import net.minecraft.world.gen.IChunkGenerator;
 import net.minecraft.world.gen.feature.WorldGenerator;
 import net.minecraftforge.fml.common.IWorldGenerator;
 
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Random;
 
 public class WorldGenCustomStructure implements IWorldGenerator {
