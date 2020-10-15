@@ -54,7 +54,7 @@ public class BlockCombustibleIce extends ModBlockIce {
     }
 
     public void onBlockDestroyedByPlayer(World worldIn, BlockPos pos, IBlockState state) {
-        if (rnd.nextBoolean() && !Minecraft.getMinecraft().player.isCreative()) {
+        if (rnd.nextBoolean()) {
             if (!worldIn.isRemote) {
                 PrimedIce primedIce = new PrimedIce(worldIn, (float) pos.getX() + 0.5F, pos.getY(), (float) pos.getZ() + 0.5F, null);
                 worldIn.spawnEntity(primedIce);

@@ -24,6 +24,8 @@ import net.minecraft.world.Explosion;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import javax.annotation.Nullable;
 import java.util.List;
@@ -44,6 +46,9 @@ public class IceBoom extends Explosion {
     private final List<BlockPos> affectedBlockPositions;
     private final Map<EntityPlayer, Vec3d> playerKnockbackMap;
     private final Vec3d position;
+    private EntityTNTPrimed entityTNTPrimed;
+    private Explosion explosion;
+    private Logger logger = LogManager.getLogger();
 
     @SideOnly(Side.CLIENT)
     public IceBoom(World worldIn, Entity entityIn, double x, double y, double z, float size, List<BlockPos> affectedPositions) {
@@ -82,10 +87,19 @@ public class IceBoom extends Explosion {
         BlockPos blockPos = new BlockPos(x, y, z).down(5).west(5).north(5);
 
 
-        for(int i = 0; i < 10; i++)
-            for(int j = 0; j < 10; j++)
-                for(int k = 0 ; k < 10; k++)
-                    set.add(blockPos.up(i).east(j).south(k));
+        for(int i = 0; i < 9; i++){
+            for(int j = 0; j < 9; j++){
+                for(int k = 0 ; k < 9; k++){
+                    if (world.getBlockState(blockPos.up(i).east(j).south(k)).getBlock().getExplosionResistance(world,new BlockPos(i,j,k),entityTNTPrimed, explosion) < 40){
+                        if (world.getBlockState(blockPos.up(i).east(j).south(k)).getBlock() != Blocks.OBSIDIAN){
+                            if (world.getBlockState(blockPos.up(i).east(j).south(k)).getBlock() != Blocks.BEDROCK) {
+                                set.add(blockPos.up(i).east(j).south(k));
+                                logger.info(world.getBlockState(blockPos.up(i).east(j).south(k)).getBlock() + "Valid BOOM Block! Destroy!");
+                            }
+                        }
+                     } else {logger.info(world.getBlockState(blockPos.up(i).east(j).south(k)).getBlock() + "NO, This cant be destroyed");}
+                }}}
+
         //Edit Above
 
         this.affectedBlockPositions.addAll(set);
