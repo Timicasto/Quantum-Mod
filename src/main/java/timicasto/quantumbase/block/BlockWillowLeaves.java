@@ -6,6 +6,7 @@ import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.BlockRenderLayer;
+import net.minecraft.util.EnumFacing;
 import net.minecraft.util.NonNullList;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
@@ -27,6 +28,7 @@ public class BlockWillowLeaves extends Block {
         this.setTickRandomly(true);
     }
     
+    @Override
     public boolean isOpaqueCube(IBlockState state) { return true; }
     
     @SideOnly(Side.CLIENT)
@@ -36,4 +38,11 @@ public class BlockWillowLeaves extends Block {
     public void getDrops(NonNullList<ItemStack> drops, IBlockAccess blockAccess,BlockPos pos,IBlockState state, int fortune) {
         new ItemStack(QuantumBaseBlocks.willowSaplingItemBlock);
     }
+    
+    @Override
+    @SideOnly(Side.CLIENT)
+    public boolean shouldSideBeRendered(IBlockState blockState, IBlockAccess blockAccess, BlockPos pos, EnumFacing side) {
+        return true;
+    }
+    
 }

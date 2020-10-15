@@ -94,10 +94,9 @@ public class IceBoom extends Explosion {
                         if (world.getBlockState(blockPos.up(i).east(j).south(k)).getBlock() != Blocks.OBSIDIAN){
                             if (world.getBlockState(blockPos.up(i).east(j).south(k)).getBlock() != Blocks.BEDROCK) {
                                 set.add(blockPos.up(i).east(j).south(k));
-                                logger.info(world.getBlockState(blockPos.up(i).east(j).south(k)).getBlock() + "Valid BOOM Block! Destroy!");
                             }
                         }
-                     } else {logger.info(world.getBlockState(blockPos.up(i).east(j).south(k)).getBlock() + "NO, This cant be destroyed");}
+                     }
                 }}}
 
         //Edit Above
