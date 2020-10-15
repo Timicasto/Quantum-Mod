@@ -36,7 +36,8 @@ public class QuantumBase {
         instance = this;
         proxy.preInit(event);
         logger = event.getModLog();
-
+        GameRegistry.registerWorldGenerator(new GenTree(),3);
+        GameRegistry.registerWorldGenerator(new WorldGenCustomStructure(),0);
     }
 
     @Mod.EventHandler
@@ -51,8 +52,6 @@ public class QuantumBase {
     public void postInit(FMLPostInitializationEvent event)
     {
         proxy.postInit(event);
-        GameRegistry.registerWorldGenerator(new GenTree(),3);
-        GameRegistry.registerWorldGenerator(new WorldGenCustomStructure(),0);
     }
 
 

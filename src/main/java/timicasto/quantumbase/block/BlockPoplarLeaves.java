@@ -1,5 +1,6 @@
 package timicasto.quantumbase.block;
 
+import net.minecraft.block.Block;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
@@ -8,31 +9,23 @@ import net.minecraft.util.NonNullList;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
 import timicasto.quantumbase.creative.TabLoader;
+import timicasto.quantumbase.register.QuantumBaseBlocks;
 
-public class BlockPoplarLeaves extends ModBlock {
-
+public class BlockPoplarLeaves extends Block {
     public BlockPoplarLeaves() {
-        super(Material.LEAVES, "poplar_leaves");
+        super(Material.LEAVES);
+        this.setRegistryName("poplar_leaves");
         this.setUnlocalizedName("poplar_leaves");
         this.setCreativeTab(TabLoader.envTab);
         this.setHardness(0.2F);
         this.setLightOpacity(1);
         this.setSoundType(SoundType.PLANT);
         this.setTickRandomly(true);
+
     }
 
     @Override
     public void getDrops(NonNullList<ItemStack> drops, IBlockAccess blockAccess, BlockPos pos, IBlockState state, int fortune) {
-        new ItemStack(BlockWillowSaplings.get());
-    }
-
-    @Override
-    public ItemStack getItem(int amount) {
-        return new ItemStack(this, amount);
-    }
-
-    @Override
-    public String name() {
-        return "poplar_leaves";
+        new ItemStack(QuantumBaseBlocks.willowSaplingItemBlock);
     }
 }

@@ -16,13 +16,13 @@ public class StructureGenerator extends WorldGenerator implements IStructure {
     public static String structureName;
 
     public StructureGenerator(String name) {
-        structureName = name;
+        this.structureName = name;
 
     }
 
     @Override
     public boolean generate(World worldIn, Random rand, BlockPos position) {
-        generateStructure(worldIn, position);
+        this.generateStructure(worldIn, position);
         return true;
     }
 

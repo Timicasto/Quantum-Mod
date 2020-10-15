@@ -1,5 +1,6 @@
 package timicasto.quantumbase.block;
 
+import net.minecraft.block.BlockBush;
 import net.minecraft.block.IGrowable;
 import net.minecraft.block.properties.PropertyInteger;
 import net.minecraft.block.state.BlockStateContainer;
@@ -11,23 +12,20 @@ import net.minecraft.world.World;
 import net.minecraft.world.gen.feature.WorldGenBigTree;
 import net.minecraft.world.gen.feature.WorldGenTrees;
 import net.minecraft.world.gen.feature.WorldGenerator;
-import net.minecraftforge.event.terraingen.TerrainGen;
-import timicasto.quantumbase.block.special.ModBlockBush;
 import timicasto.quantumbase.creative.TabLoader;
 import timicasto.quantumbase.environment.GenTree;
-import timicasto.quantumbase.utils.annotation.ManualRegisterConstructor;
 
 import java.util.Random;
 
-public class BlockWillowSaplings extends ModBlockBush implements IGrowable {
+public class BlockWillowSaplings extends BlockBush implements IGrowable {
     public static final PropertyInteger STAGE = PropertyInteger.create("stage", 0, 1);
+
     public int type;
 
-    @ManualRegisterConstructor
     public BlockWillowSaplings(int i) {
-        super("willow_sapling");
-        this.type = i;
+        this.type=i;
         this.setDefaultState(this.blockState.getBaseState().withProperty(STAGE,0));
+        this.setRegistryName("willow_sapling");
         this.setUnlocalizedName("willow_sapling");
         this.setCreativeTab(TabLoader.envTab);
     }
@@ -58,22 +56,24 @@ public class BlockWillowSaplings extends ModBlockBush implements IGrowable {
     }
 
     public void generateTree(World worldIn, BlockPos pos, IBlockState state, Random rand) {
-        if (!TerrainGen.saplingGrowTree(worldIn,rand,pos)) {
+        if (!net.minecraftforge.event.terraingen.TerrainGen.saplingGrowTree(worldIn,rand,pos))
             return;
+        WorldGenerator worldGenerator = rand.nextInt(10) == 0? new WorldGenBigTree(true) : new WorldGenTrees(true);
+        int i = 0;
+        int j = 0;
+        boolean flag = false;
+
+        switch (type) {
+            case 0:
+                worldGenerator = new GenTree().willowTree;
+                break;
         }
 
-        WorldGenerator worldGenerator;
+        IBlockState iBlockState2 = Blocks.AIR.getDefaultState();
+        worldIn.setBlockState(pos,iBlockState2,4);
 
-        if (type == 0) {
-            worldGenerator = new GenTree().willowTree;
-        } else {
-            worldGenerator = rand.nextInt(10) == 0? new WorldGenBigTree(true) : new WorldGenTrees(true);
-        }
-
-        worldIn.setBlockState(pos, Blocks.AIR.getDefaultState(), 4);
-
-        if (!worldGenerator.generate(worldIn, rand, pos)) {
-            worldIn.setBlockState(pos, state, 4);
+        if (!worldGenerator.generate(worldIn,rand,pos.add(i,0,j))) {
+            worldIn.setBlockState(pos,state,4);
         }
     }
 

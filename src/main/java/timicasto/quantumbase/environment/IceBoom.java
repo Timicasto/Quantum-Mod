@@ -64,8 +64,8 @@ public class IceBoom extends Explosion {
     public IceBoom(World worldIn, Entity entityIn, double x, double y, double z, float size, boolean flaming, boolean damagesTerrain) {
         super(worldIn, entityIn, x, y, z, size, flaming, damagesTerrain);
         this.random = new Random();
-        this.affectedBlockPositions = Lists.newArrayList();
-        this.playerKnockbackMap = Maps.newHashMap();
+        this.affectedBlockPositions = Lists.<BlockPos>newArrayList();
+        this.playerKnockbackMap = Maps.<EntityPlayer, Vec3d>newHashMap();
         this.world = worldIn;
         this.exploder = entityIn;
         this.size = size;
@@ -81,7 +81,7 @@ public class IceBoom extends Explosion {
      * Does the first part of the explosion (destroy blocks)
      */
     public void doExplosionA() {
-        Set<BlockPos> set = Sets.newHashSet();
+        Set<BlockPos> set = Sets.<BlockPos>newHashSet();
 
         //Edit Below
         BlockPos blockPos = new BlockPos(x, y, z).down(5).west(5).north(5);
@@ -114,34 +114,36 @@ public class IceBoom extends Explosion {
         net.minecraftforge.event.ForgeEventFactory.onExplosionDetonate(this.world, this, list, f3);
         Vec3d vec3d = new Vec3d(this.x, this.y, this.z);
 
-        for (Entity entity : list) {
+        for (int k2 = 0; k2 < list.size(); ++k2) {
+            Entity entity = list.get(k2);
+
             if (!entity.isImmuneToExplosions()) {
-                double d12 = entity.getDistance(this.x, this.y, this.z) / (double) f3;
+                double d12 = entity.getDistance(this.x, this.y, this.z) / (double)f3;
 
                 if (d12 <= 1.0D) {
                     double d5 = entity.posX - this.x;
-                    double d7 = entity.posY + (double) entity.getEyeHeight() - this.y;
+                    double d7 = entity.posY + (double)entity.getEyeHeight() - this.y;
                     double d9 = entity.posZ - this.z;
-                    double d13 = (double) MathHelper.sqrt(d5 * d5 + d7 * d7 + d9 * d9);
+                    double d13 = (double)MathHelper.sqrt(d5 * d5 + d7 * d7 + d9 * d9);
 
                     if (d13 != 0.0D) {
                         d5 = d5 / d13;
                         d7 = d7 / d13;
                         d9 = d9 / d13;
-                        double d14 = (double) this.world.getBlockDensity(vec3d, entity.getEntityBoundingBox());
+                        double d14 = (double)this.world.getBlockDensity(vec3d, entity.getEntityBoundingBox());
                         double d10 = (1.0D - d12) * d14;
-                        entity.attackEntityFrom(DamageSource.causeExplosionDamage(this), (float) ((int) ((d10 * d10 + d10) / 2.0D * 7.0D * (double) f3 + 1.0D)));
+                        entity.attackEntityFrom(DamageSource.causeExplosionDamage(this), (float)((int)((d10 * d10 + d10) / 2.0D * 7.0D * (double)f3 + 1.0D)));
                         double d11 = d10;
 
                         if (entity instanceof EntityLivingBase)
-                            d11 = EnchantmentProtection.getBlastDamageReduction((EntityLivingBase) entity, d10);
+                            d11 = EnchantmentProtection.getBlastDamageReduction((EntityLivingBase)entity, d10);
 
                         entity.motionX += d5 * d11;
                         entity.motionY += d7 * d11;
                         entity.motionZ += d9 * d11;
 
                         if (entity instanceof EntityPlayer) {
-                            EntityPlayer entityplayer = (EntityPlayer) entity;
+                            EntityPlayer entityplayer = (EntityPlayer)entity;
 
                             if (!entityplayer.isSpectator() && (!entityplayer.isCreative() || !entityplayer.capabilities.isFlying))
                                 this.playerKnockbackMap.put(entityplayer, new Vec3d(d5 * d10, d7 * d10, d9 * d10));

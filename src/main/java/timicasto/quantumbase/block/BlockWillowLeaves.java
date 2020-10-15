@@ -1,18 +1,24 @@
 package timicasto.quantumbase.block;
 
+import net.minecraft.block.Block;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.BlockRenderLayer;
 import net.minecraft.util.NonNullList;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 import timicasto.quantumbase.creative.TabLoader;
+import timicasto.quantumbase.register.QuantumBaseBlocks;
 
-public class BlockWillowLeaves extends ModBlock {
+public class BlockWillowLeaves extends Block {
 
     public BlockWillowLeaves() {
-        super(Material.LEAVES, "willow_leaves");
+        super(Material.LEAVES);
+        this.setRegistryName("willow_leaves");
         this.setUnlocalizedName("willow_leaves");
         this.setCreativeTab(TabLoader.envTab);
         this.setHardness(0.2F);
@@ -20,9 +26,14 @@ public class BlockWillowLeaves extends ModBlock {
         this.setSoundType(SoundType.PLANT);
         this.setTickRandomly(true);
     }
+    
+    public boolean isOpaqueCube(IBlockState state) { return true; }
+    
+    @SideOnly(Side.CLIENT)
+    public BlockRenderLayer getBlockLayer() { return BlockRenderLayer.CUTOUT_MIPPED; }
 
     @Override
     public void getDrops(NonNullList<ItemStack> drops, IBlockAccess blockAccess,BlockPos pos,IBlockState state, int fortune) {
-        new ItemStack(BlockWillowSaplings.get());
+        new ItemStack(QuantumBaseBlocks.willowSaplingItemBlock);
     }
 }

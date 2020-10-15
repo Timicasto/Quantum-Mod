@@ -4,16 +4,12 @@ import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
-import net.minecraft.world.biome.Biome;
 import net.minecraft.world.biome.BiomeOcean;
-import net.minecraft.world.biome.BiomePlains;
 import net.minecraft.world.chunk.IChunkProvider;
 import net.minecraft.world.gen.IChunkGenerator;
 import net.minecraft.world.gen.feature.WorldGenerator;
 import net.minecraftforge.fml.common.IWorldGenerator;
 
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Random;
 
 public class WorldGenCustomStructure implements IWorldGenerator {
@@ -21,10 +17,16 @@ public class WorldGenCustomStructure implements IWorldGenerator {
 
     @Override
     public void generate(Random random, int chunkX, int chunkZ, World world, IChunkGenerator chunkGenerator, IChunkProvider chunkProvider) {
-        if (world.provider.getDimension() == 0) {
-            if (world.getBiomeForCoordsBody(new BlockPos(chunkX * 16, 70, chunkZ * 16)) instanceof BiomeOcean) {
-                generateStructure(combustibleIce, world, random, chunkX, chunkZ, 1, Blocks.WATER);
-            }
+        switch (world.provider.getDimension()) {
+            case 1:
+                break;
+            case 0:
+                if (world.getBiomeForCoordsBody(new BlockPos(chunkX * 16, 70, chunkZ * 16)) instanceof BiomeOcean) {
+                    generateStructure(combustibleIce, world, random, chunkX, chunkZ, 1, Blocks.WATER);
+                }
+                break;
+            case -1:
+                break;
         }
     }
     private void generateStructure(WorldGenerator generator, World world, Random random, int chunkX, int chunkZ, int chance, Block topBlock) {
