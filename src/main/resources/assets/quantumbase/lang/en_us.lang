@@ -2,6 +2,12 @@ itemGroup.quantumbase_environment=Quantum Base : Environment
 
 tile.willow_wood.name=Willow Log
 tile.willow_leaves.name=Willow Leaf
-fluid.petroleum.name=Petroleum
+tile.willow_sapling.name=Willow Sapling
+tile.poplar_wood.name=Poplar Log
+tile.poplar_leaves.name=Poplar Leaf
+tile.poplar_sapling.name=Poplar Sapling
+
 tile.combustible_ice.name=Combustible Ice Mixture
 item.combustible_ice_item.name=Combustible Ice
+
+fluid.petroleum.name=Petroleum

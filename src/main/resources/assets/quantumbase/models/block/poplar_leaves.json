@@ -1,0 +1,6 @@
+{
+    "parent": "minecraft:block/leaves",
+    "textures": {
+        "all": "quantumbase:blocks/poplar_leaves"
+    }
+}

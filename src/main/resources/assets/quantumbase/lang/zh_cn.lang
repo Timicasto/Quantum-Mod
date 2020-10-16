@@ -2,6 +2,12 @@ itemGroup.quantumbase_environment=量子基础 : 环境
 
 tile.willow_wood.name=柳树原木
 tile.willow_leaves.name=柳树树叶
-fluid.petroleum.name=石油
+tile.willow_sapling.name=柳树树苗
+tile.poplar_wood.name=杨树原木
+tile.poplar_leaves.name=杨树树叶
+tile.poplar_sapling.name=杨树树苗
+
 tile.combustible_ice.name=可燃冰混合物
 item.combustible_ice_item.name=可燃冰
+
+fluid.petroleum.name=石油
