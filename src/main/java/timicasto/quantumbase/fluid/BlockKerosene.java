@@ -6,10 +6,10 @@ import net.minecraft.util.EnumBlockRenderType;
 import net.minecraftforge.fluids.BlockFluidClassic;
 import timicasto.quantumbase.creative.TabLoader;
 
-public class LiquidPetroleumBlock extends BlockFluidClassic {
-    public LiquidPetroleumBlock() {
-        super(FluidLoader.PETROLEUM, Material.WATER);
-        setUnlocalizedName("petroleum");
+public class BlockKerosene extends BlockFluidClassic {
+    public BlockKerosene() {
+        super(FluidLoader.KEROSENE, Material.WATER);
+        setUnlocalizedName("kerosene");
         setCreativeTab(TabLoader.envTab);
     }
 

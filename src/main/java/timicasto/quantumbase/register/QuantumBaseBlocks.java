@@ -4,10 +4,17 @@ import net.minecraft.block.Block;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemBlock;
+import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.event.ModelRegistryEvent;
 import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.event.RegistryEvent;
+import net.minecraftforge.fluids.Fluid;
+import net.minecraftforge.fml.common.registry.GameRegistry;
+import timicasto.quantumbase.QuantumBase;
 import timicasto.quantumbase.block.*;
+import timicasto.quantumbase.fluid.*;
+import timicasto.quantumbase.tile.TileEntityKeroseneLight;
+import timicasto.quantumbase.tile.TileEntityPetroleumProcessor;
 
 public class QuantumBaseBlocks {
 	
@@ -18,7 +25,15 @@ public class QuantumBaseBlocks {
 	public static Block poplarLeaves = new BlockPoplarLeaves();
 	public static Block poplarSapling = new BlockPoplarSapling(0);
 	public static Block combustibleIce = new BlockCombustibleIce();
-	
+	public static Block blockCh4 = new BlockCH4();
+	public static Block seaWater = new BlockSeaWater();
+	public static Block petroleum = new LiquidPetroleumBlock();
+	public static Block petroleumProcessor = new BlockPetroleumProcessor();
+	public static Block keroseneLight = new BlockKeroseneLight();
+	public static Block kerosene = new BlockKerosene();
+	public static Block glow = new BlockGlow();
+
+
 	public static Item willowWoodItemBlock = new ItemBlock(willowWood);
 	public static Item willowLeavesItemBlock = new ItemBlock(willowLeaves);
 	public static Item willowSaplingItemBlock = new ItemBlock(willowSapling);
@@ -26,7 +41,9 @@ public class QuantumBaseBlocks {
 	public static Item poplarLeavesItemBlock = new ItemBlock(poplarLeaves);
 	public static Item poplarSaplingItemBlock = new ItemBlock(poplarSapling);
 	public static Item combustibleIceItemBlock = new ItemBlock(combustibleIce);
-	
+	public static Item petroleumProcessorItemBlock = new ItemBlock(petroleumProcessor);
+	public static Item keroseneLightItemBlock = new ItemBlock(keroseneLight);
+
 	public static void registerBlock(RegistryEvent.Register<Block> event) {
 		event.getRegistry().registerAll(
 				willowWood,
@@ -35,8 +52,25 @@ public class QuantumBaseBlocks {
 				poplarLeaves,
 				poplarSapling,
 				poplarWood,
-				combustibleIce
+				combustibleIce,
+				blockCh4,
+				seaWater.setRegistryName("sea_water"),
+				petroleum.setRegistryName("petroleum"),
+				kerosene.setRegistryName("kerosene"),
+				petroleumProcessor,
+				keroseneLight.setRegistryName("kerosene_light").setUnlocalizedName("kerosene_light"),
+				glow
 		);
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
 	}
 	
 	public static void registerItem(RegistryEvent.Register<Item> event) {
@@ -47,8 +81,12 @@ public class QuantumBaseBlocks {
 				poplarLeavesItemBlock.setRegistryName("poplar_leaves"),
 				poplarSaplingItemBlock.setRegistryName("poplar_sapling"),
 				poplarWoodItemBlock.setRegistryName("poplar_wood"),
-				combustibleIceItemBlock.setRegistryName("combustible_ice")
+				combustibleIceItemBlock.setRegistryName("combustible_ice"),
+				petroleumProcessorItemBlock.setRegistryName("petroleum_processor"),
+				keroseneLightItemBlock.setRegistryName("kerosene_light")
 		);
+		GameRegistry.registerTileEntity(TileEntityPetroleumProcessor.class, new ResourceLocation(QuantumBase.MODID, "petroleum_processor"));
+		GameRegistry.registerTileEntity(TileEntityKeroseneLight.class, new ResourceLocation(QuantumBase.MODID, "kerosene_light"));
 	}
 	
 	public static void registerItemModel(ModelRegistryEvent event) {
@@ -60,5 +98,7 @@ public class QuantumBaseBlocks {
 		ModelLoader.setCustomModelResourceLocation(poplarWoodItemBlock, 0, new ModelResourceLocation(poplarWoodItemBlock.getRegistryName(), "inventory"));
 		ModelLoader.setCustomModelResourceLocation(combustibleIceItemBlock, 0, new ModelResourceLocation(combustibleIceItemBlock.getRegistryName(), "inventory"));
 	}
+
+
 	
 }

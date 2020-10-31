@@ -17,7 +17,6 @@ public class StructureGenerator extends WorldGenerator implements IStructure {
 
     public StructureGenerator(String name) {
         this.structureName = name;
-
     }
 
     @Override
