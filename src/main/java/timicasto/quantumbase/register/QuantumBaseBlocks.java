@@ -14,6 +14,7 @@ import timicasto.quantumbase.QuantumBase;
 import timicasto.quantumbase.block.*;
 import timicasto.quantumbase.fluid.*;
 import timicasto.quantumbase.tile.TileEntityKeroseneLight;
+import timicasto.quantumbase.tile.TileEntityMetalSmelter;
 import timicasto.quantumbase.tile.TileEntityPetroleumProcessor;
 
 public class QuantumBaseBlocks {
@@ -34,6 +35,7 @@ public class QuantumBaseBlocks {
 	public static Block glow = new BlockGlow();
 	public static Block hematite = new BlockHematite();
 	public static Block magnetite = new BlockMagnetite();
+	public static Block metalSmelter = new BlockMetalSmelter();
 
 	public static Item willowWoodItemBlock = new ItemBlock(willowWood);
 	public static Item willowLeavesItemBlock = new ItemBlock(willowLeaves);
@@ -46,6 +48,7 @@ public class QuantumBaseBlocks {
 	public static Item keroseneLightItemBlock = new ItemBlock(keroseneLight);
 	public static Item hematiteItemBlock = new ItemBlock(hematite);
 	public static Item magnetiteItemBlock = new ItemBlock(magnetite);
+	public static Item metalSmelterItemBlock = new ItemBlock(metalSmelter);
 
 	public static void registerBlock(RegistryEvent.Register<Block> event) {
 		event.getRegistry().registerAll(
@@ -64,7 +67,8 @@ public class QuantumBaseBlocks {
 				keroseneLight.setRegistryName("kerosene_light").setUnlocalizedName("kerosene_light"),
 				glow,
 				hematite,
-				magnetite
+				magnetite,
+				metalSmelter
 		);
 	}
 	
@@ -80,10 +84,12 @@ public class QuantumBaseBlocks {
 				petroleumProcessorItemBlock.setRegistryName("petroleum_processor"),
 				keroseneLightItemBlock.setRegistryName("kerosene_light"),
 				hematiteItemBlock.setRegistryName("hematite"),
-				magnetiteItemBlock.setRegistryName("magnetite")
+				magnetiteItemBlock.setRegistryName("magnetite"),
+				metalSmelterItemBlock.setRegistryName("metal_smelter")
 		);
 		GameRegistry.registerTileEntity(TileEntityPetroleumProcessor.class, new ResourceLocation(QuantumBase.MODID, "petroleum_processor"));
 		GameRegistry.registerTileEntity(TileEntityKeroseneLight.class, new ResourceLocation(QuantumBase.MODID, "kerosene_light"));
+		GameRegistry.registerTileEntity(TileEntityMetalSmelter.class, new ResourceLocation(QuantumBase.MODID, "metal_smelter"));
 	}
 	
 	public static void registerItemModel(ModelRegistryEvent event) {

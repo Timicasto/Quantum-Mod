@@ -8,6 +8,7 @@ import timicasto.quantumbase.gui.ContainerMetalSmelter;
 import timicasto.quantumbase.gui.ContainerPetroleumProcessor;
 import timicasto.quantumbase.gui.GuiContainerMetalSmelter;
 import timicasto.quantumbase.gui.GuiContainerPetroleumProcessor;
+import timicasto.quantumbase.tile.TileEntityMetalSmelter;
 import timicasto.quantumbase.tile.TileEntityPetroleumProcessor;
 
 public class GuiHandler implements IGuiHandler {
@@ -22,7 +23,7 @@ public class GuiHandler implements IGuiHandler {
             case guiPetroleumProcessor:
                 return new ContainerPetroleumProcessor(player.inventory, (TileEntityPetroleumProcessor) world.getTileEntity(new BlockPos(x, y, z)));
             case guiMetalSmelter:
-                return new ContainerMetalSmelter();
+                return new ContainerMetalSmelter(player.inventory, (TileEntityMetalSmelter) world.getTileEntity(new BlockPos(x, y, z)));
             default:
                 return null;
         }
@@ -36,7 +37,7 @@ public class GuiHandler implements IGuiHandler {
             case guiPetroleumProcessor:
                 return new GuiContainerPetroleumProcessor(player.inventory, (TileEntityPetroleumProcessor) world.getTileEntity(new BlockPos(x, y, z)));
             case guiMetalSmelter:
-                return new GuiContainerMetalSmelter(player.inventoryContainer);
+                return new GuiContainerMetalSmelter(player.inventory, (TileEntityMetalSmelter) world.getTileEntity(new BlockPos(x, y, z)));
             default:
                 return null;
         }

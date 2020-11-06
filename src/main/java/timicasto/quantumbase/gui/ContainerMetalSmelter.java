@@ -5,6 +5,7 @@ import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.inventory.Container;
+import net.minecraft.inventory.Slot;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
@@ -43,6 +44,23 @@ public class ContainerMetalSmelter extends Container {
                 return stack.getItem() == Items.COAL;
             }
         });
+
+        this.addSlotToContainer(new SlotItemHandler(inventory, 2, 56, 59){
+            @Override
+            public boolean isItemValid(ItemStack stack) {
+                return false;
+            }
+        });
+
+        for (int i = 0 ; i < 9 ; i++) {
+            this.addSlotToContainer(new Slot(player, i, 8 + i * 18, 142));
+        }
+
+        for (int i = 0 ; i < 3 ; i++) {
+            for (int k = 0 ; k < 9 ; k++) {
+                this.addSlotToContainer(new Slot(player, k + i * 9 + 9, 8 + k * 18, 84 + i * 18));
+            }
+        }
     }
 
     @Override
