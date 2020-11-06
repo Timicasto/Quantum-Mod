@@ -17,11 +17,8 @@ import net.minecraftforge.fml.relauncher.Side;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import timicasto.quantumbase.capability.CapabilityHandler;
-import timicasto.quantumbase.environment.GenSeaWater;
-import timicasto.quantumbase.environment.GenTree;
+import timicasto.quantumbase.environment.*;
 // import timicasto.quantumbase.fluid.LiquidPetroleum;
-import timicasto.quantumbase.environment.PetroleumGenerator;
-import timicasto.quantumbase.environment.WorldGenCustomStructure;
 import timicasto.quantumbase.fluid.FluidLoader;
 import timicasto.quantumbase.network.PacketMoisture;
 import timicasto.quantumbase.proxy.CommonProxy;
@@ -72,6 +69,7 @@ public class QuantumBase {
         GameRegistry.registerWorldGenerator(new GenTree(),3);
         GameRegistry.registerWorldGenerator(new WorldGenCustomStructure(),0);
         GameRegistry.registerWorldGenerator(new PetroleumGenerator(), 0);
+        GameRegistry.registerWorldGenerator(new WorldGenOres(), 0);
         networkWrapper.registerMessage(new PacketMoisture.Handler(), PacketMoisture.class, 1, Side.CLIENT);
     }
 

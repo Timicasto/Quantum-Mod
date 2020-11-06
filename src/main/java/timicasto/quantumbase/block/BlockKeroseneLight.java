@@ -8,6 +8,7 @@ import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
+import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
@@ -82,6 +83,14 @@ public class BlockKeroseneLight extends Block {
         if (tile instanceof TileEntityKeroseneLight && universalBucket.getFluid(playerIn.getHeldItem(hand)).getFluid() == FluidLoader.KEROSENE) {
             playerIn.setHeldItem(hand, ((TileEntityKeroseneLight)tile).tryAcceptFuel());
             playerIn.sendStatusMessage(new TextComponentString("Fuel: " + ((TileEntityKeroseneLight)tile).getFuel()), true);
+        }
+        ItemStack heldItem = playerIn.getHeldItem(hand);
+        if (heldItem.getItem() == Items.FLINT_AND_STEEL) {
+            if (worldIn.getBlockState(new BlockPos(pos.getX(), pos.getY() - 1, pos.getZ())).getBlock() == Blocks.AIR) {
+
+            } else {
+
+            }
         }
         return true;
     }

@@ -7,8 +7,8 @@ import net.minecraft.item.ItemBlock;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.event.ModelRegistryEvent;
 import net.minecraftforge.client.model.ModelLoader;
+import net.minecraftforge.client.model.obj.OBJLoader;
 import net.minecraftforge.event.RegistryEvent;
-import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import timicasto.quantumbase.QuantumBase;
 import timicasto.quantumbase.block.*;
@@ -32,7 +32,8 @@ public class QuantumBaseBlocks {
 	public static Block keroseneLight = new BlockKeroseneLight();
 	public static Block kerosene = new BlockKerosene();
 	public static Block glow = new BlockGlow();
-
+	public static Block hematite = new BlockHematite();
+	public static Block magnetite = new BlockMagnetite();
 
 	public static Item willowWoodItemBlock = new ItemBlock(willowWood);
 	public static Item willowLeavesItemBlock = new ItemBlock(willowLeaves);
@@ -43,6 +44,8 @@ public class QuantumBaseBlocks {
 	public static Item combustibleIceItemBlock = new ItemBlock(combustibleIce);
 	public static Item petroleumProcessorItemBlock = new ItemBlock(petroleumProcessor);
 	public static Item keroseneLightItemBlock = new ItemBlock(keroseneLight);
+	public static Item hematiteItemBlock = new ItemBlock(hematite);
+	public static Item magnetiteItemBlock = new ItemBlock(magnetite);
 
 	public static void registerBlock(RegistryEvent.Register<Block> event) {
 		event.getRegistry().registerAll(
@@ -59,18 +62,10 @@ public class QuantumBaseBlocks {
 				kerosene.setRegistryName("kerosene"),
 				petroleumProcessor,
 				keroseneLight.setRegistryName("kerosene_light").setUnlocalizedName("kerosene_light"),
-				glow
+				glow,
+				hematite,
+				magnetite
 		);
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
 	}
 	
 	public static void registerItem(RegistryEvent.Register<Item> event) {
@@ -83,13 +78,16 @@ public class QuantumBaseBlocks {
 				poplarWoodItemBlock.setRegistryName("poplar_wood"),
 				combustibleIceItemBlock.setRegistryName("combustible_ice"),
 				petroleumProcessorItemBlock.setRegistryName("petroleum_processor"),
-				keroseneLightItemBlock.setRegistryName("kerosene_light")
+				keroseneLightItemBlock.setRegistryName("kerosene_light"),
+				hematiteItemBlock.setRegistryName("hematite"),
+				magnetiteItemBlock.setRegistryName("magnetite")
 		);
 		GameRegistry.registerTileEntity(TileEntityPetroleumProcessor.class, new ResourceLocation(QuantumBase.MODID, "petroleum_processor"));
 		GameRegistry.registerTileEntity(TileEntityKeroseneLight.class, new ResourceLocation(QuantumBase.MODID, "kerosene_light"));
 	}
 	
 	public static void registerItemModel(ModelRegistryEvent event) {
+		OBJLoader.INSTANCE.addDomain(QuantumBase.MODID);
 		ModelLoader.setCustomModelResourceLocation(willowWoodItemBlock, 0, new ModelResourceLocation(willowWoodItemBlock.getRegistryName(), "inventory"));
 		ModelLoader.setCustomModelResourceLocation(willowLeavesItemBlock, 0, new ModelResourceLocation(willowLeavesItemBlock.getRegistryName(), "inventory"));
 		ModelLoader.setCustomModelResourceLocation(willowSaplingItemBlock, 0, new ModelResourceLocation(willowSaplingItemBlock.getRegistryName(), "inventory"));

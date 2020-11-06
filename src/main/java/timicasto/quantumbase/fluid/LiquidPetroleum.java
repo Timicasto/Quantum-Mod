@@ -1,9 +1,7 @@
 package timicasto.quantumbase.fluid;
 
-import net.minecraft.item.ItemBlock;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fluids.Fluid;
-import net.minecraftforge.fml.common.registry.ForgeRegistries;
 
 import java.awt.*;
 

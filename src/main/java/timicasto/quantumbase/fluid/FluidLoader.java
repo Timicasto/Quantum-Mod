@@ -2,14 +2,8 @@ package timicasto.quantumbase.fluid;
 
 import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidRegistry;
-import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import timicasto.quantumbase.QuantumBase;
-import timicasto.quantumbase.item.ItemModBucket;
-import timicasto.quantumbase.register.QuantumBaseBlocks;
-import timicasto.quantumbase.register.QuantumBaseItems;
-import timicasto.quantumbase.utils.EventHandler;
 
 public class FluidLoader {
      public static Fluid SEA_WATER = new FluidSeaWater();
