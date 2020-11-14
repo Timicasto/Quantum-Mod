@@ -1,9 +1,9 @@
 {
 	"parent": "block/block",
 	"textures": {
-		"0": "quantumbase:blocks/willow_wood",
+		"0": "quantumbase:blocks/willow_wood_top",
 		"1": "quantumbase:blocks/willow_wood_side",
-		"particle": "quantumbase:blocks/willow_wood"
+		"particle": "quantumbase:blocks/willow_wood_side"
 	},
 	"elements": [
 		{

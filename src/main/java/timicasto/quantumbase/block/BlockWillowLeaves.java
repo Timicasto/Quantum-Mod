@@ -29,7 +29,9 @@ public class BlockWillowLeaves extends Block {
     }
     
     @Override
-    public boolean isOpaqueCube(IBlockState state) { return true; }
+    public boolean isOpaqueCube(IBlockState state) { return false; }
+    
+    @Override public boolean isLeaves(IBlockState state, IBlockAccess world, BlockPos pos){ return true; }
     
     @SideOnly(Side.CLIENT)
     public BlockRenderLayer getBlockLayer() { return BlockRenderLayer.CUTOUT_MIPPED; }

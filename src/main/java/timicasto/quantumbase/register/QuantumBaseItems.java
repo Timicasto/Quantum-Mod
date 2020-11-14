@@ -31,5 +31,6 @@ public class QuantumBaseItems {
 		ModelLoader.setCustomModelResourceLocation(combustibleIce, 0, new ModelResourceLocation(combustibleIce.getRegistryName(), "inventory"));
 		ModelLoader.setCustomModelResourceLocation(paraffin, 0, new ModelResourceLocation(paraffin.getRegistryName(), "inventory"));
 		ModelLoader.setCustomModelResourceLocation(asphalt, 0, new ModelResourceLocation(asphalt.getRegistryName(), "inventory"));
+		ModelLoader.setCustomModelResourceLocation(debugTool, 0, new ModelResourceLocation(debugTool.getRegistryName(), "inventory"));
 	}
 }

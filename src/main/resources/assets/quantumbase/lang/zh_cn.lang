@@ -10,4 +10,6 @@ tile.poplar_sapling.name=杨树树苗
 tile.combustible_ice.name=可燃冰混合物
 item.combustible_ice_item.name=可燃冰
 
+item.debug_tool.name=§c§lQDS §r§7§o( 量子调试法杖 / Quantumic Debug Staff )
+
 fluid.petroleum.name=石油

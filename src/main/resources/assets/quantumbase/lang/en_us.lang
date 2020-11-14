@@ -10,4 +10,6 @@ tile.poplar_sapling.name=Poplar Sapling
 tile.combustible_ice.name=Combustible Ice Mixture
 item.combustible_ice_item.name=Combustible Ice
 
+item.debug_tool.name=§c§lQDS §r§7§o( Quantumic Debug Staff )
+
 fluid.petroleum.name=Petroleum
