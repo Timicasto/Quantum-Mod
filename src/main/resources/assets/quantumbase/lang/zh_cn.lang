@@ -6,6 +6,8 @@ tile.willow_sapling.name=柳树树苗
 tile.poplar_wood.name=杨树原木
 tile.poplar_leaves.name=杨树树叶
 tile.poplar_sapling.name=杨树树苗
+tile.hematite.name=赤铁矿
+tile.magnetite.name=磁铁矿
 
 tile.combustible_ice.name=可燃冰混合物
 item.combustible_ice_item.name=可燃冰

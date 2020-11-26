@@ -6,6 +6,8 @@ tile.willow_sapling.name=Willow Sapling
 tile.poplar_wood.name=Poplar Log
 tile.poplar_leaves.name=Poplar Leaf
 tile.poplar_sapling.name=Poplar Sapling
+tile.hematite.name=Hematite
+tile.magnetite.name=Magnetite
 
 tile.combustible_ice.name=Combustible Ice Mixture
 item.combustible_ice_item.name=Combustible Ice

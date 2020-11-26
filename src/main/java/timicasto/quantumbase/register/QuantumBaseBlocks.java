@@ -17,6 +17,8 @@ import timicasto.quantumbase.tile.TileEntityKeroseneLight;
 import timicasto.quantumbase.tile.TileEntityMetalSmelter;
 import timicasto.quantumbase.tile.TileEntityPetroleumProcessor;
 
+import java.util.Objects;
+
 public class QuantumBaseBlocks {
 	
 	public static Block willowWood = new BlockWillowWood();
@@ -94,15 +96,23 @@ public class QuantumBaseBlocks {
 	
 	public static void registerItemModel(ModelRegistryEvent event) {
 		OBJLoader.INSTANCE.addDomain(QuantumBase.MODID);
-		ModelLoader.setCustomModelResourceLocation(willowWoodItemBlock, 0, new ModelResourceLocation(willowWoodItemBlock.getRegistryName(), "inventory"));
-		ModelLoader.setCustomModelResourceLocation(willowLeavesItemBlock, 0, new ModelResourceLocation(willowLeavesItemBlock.getRegistryName(), "inventory"));
-		ModelLoader.setCustomModelResourceLocation(willowSaplingItemBlock, 0, new ModelResourceLocation(willowSaplingItemBlock.getRegistryName(), "inventory"));
-		ModelLoader.setCustomModelResourceLocation(poplarLeavesItemBlock, 0, new ModelResourceLocation(poplarLeavesItemBlock.getRegistryName(), "inventory"));
-		ModelLoader.setCustomModelResourceLocation(poplarSaplingItemBlock, 0, new ModelResourceLocation(poplarSaplingItemBlock.getRegistryName(), "inventory"));
-		ModelLoader.setCustomModelResourceLocation(poplarWoodItemBlock, 0, new ModelResourceLocation(poplarWoodItemBlock.getRegistryName(), "inventory"));
-		ModelLoader.setCustomModelResourceLocation(combustibleIceItemBlock, 0, new ModelResourceLocation(combustibleIceItemBlock.getRegistryName(), "inventory"));
+		itemModelFastRegister(
+				willowWoodItemBlock,
+				willowLeavesItemBlock,
+				willowSaplingItemBlock,
+				poplarWoodItemBlock,
+				poplarLeavesItemBlock,
+				poplarSaplingItemBlock,
+				combustibleIceItemBlock,
+				hematiteItemBlock,
+				magnetiteItemBlock
+		);
 	}
-
-
+	
+	private static void itemModelFastRegister (Item... items) {
+		for (Item i : items) {
+			ModelLoader.setCustomModelResourceLocation(i, 0, new ModelResourceLocation(Objects.requireNonNull(i.getRegistryName()), "inventory"));
+		}
+	}
 	
 }
