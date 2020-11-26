@@ -12,6 +12,8 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.SlotItemHandler;
+import timicasto.quantumbase.register.QuantumBaseBlocks;
+import timicasto.quantumbase.register.QuantumBaseItems;
 import timicasto.quantumbase.tile.TileEntityMetalSmelter;
 
 public class ContainerMetalSmelter extends Container {
@@ -34,7 +36,7 @@ public class ContainerMetalSmelter extends Container {
 
             @Override
             public boolean isItemValid(ItemStack stack) {
-                return stack.getItem() == Item.getItemFromBlock(Blocks.GOLD_ORE) || stack.getItem() == Item.getItemFromBlock(Blocks.IRON_ORE);
+                return true;
             }
         });
 

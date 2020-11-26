@@ -14,7 +14,6 @@ import java.util.Iterator;
 import java.util.Map;
 
 public class CraftingHandler {
-    Map<ItemStack, ItemStack> smeltingMap = new HashMap<>();
     private final Logger logger = LogManager.getLogger();
 
     public CraftingHandler() {

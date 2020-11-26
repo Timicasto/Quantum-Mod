@@ -9,6 +9,7 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ITickable;
 import net.minecraftforge.common.capabilities.Capability;
+import net.minecraftforge.event.CommandEvent;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.FluidTank;
 import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
@@ -17,6 +18,10 @@ import net.minecraftforge.items.ItemStackHandler;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import timicasto.quantumbase.fluid.FluidLoader;
+import timicasto.quantumbase.register.QuantumBaseBlocks;
+import timicasto.quantumbase.utils.MetalSmelterRecipe;
+
+import java.util.Random;
 
 public class TileEntityMetalSmelter extends TileEntity implements ITickable {
     private Logger logger = LogManager.getLogger();
@@ -28,6 +33,7 @@ public class TileEntityMetalSmelter extends TileEntity implements ITickable {
     private int temperature;
     private final ItemStackHandler inventory = new ItemStackHandler(3);
     private final FluidTank carbonMonoxide = new FluidTank(32000);
+    private Random random = new Random();
 
     @Override
     public void update() {
@@ -43,8 +49,9 @@ public class TileEntityMetalSmelter extends TileEntity implements ITickable {
                 }
             }
 
-            if (temperature >= getSmeltingTemp(source) && fuel > 0) {
+            if (temperature >= MetalSmelterRecipe.instance().getField("temp", new ItemStack(source)) && fuel > 0) {
                 isWorking = true;
+                isTempIncreasing = false;
             } else {
                 isWorking = false;
             }
@@ -58,28 +65,53 @@ public class TileEntityMetalSmelter extends TileEntity implements ITickable {
                 }
             }
 
-            if (isWorking && fuel > 0) {
-                ItemStack result = getItemSmeltResult(source);
-                boolean isNeedReduce = isSourceNeedReduce(result.getItem());
+            if (isWorking && fuel > 0 && !isTempIncreasing) {
+                ItemStack result = MetalSmelterRecipe.instance().getSmeltingResult(new ItemStack(source));
+                boolean isNeedReduce = MetalSmelterRecipe.instance().isSourceNeedReduce(result);
                 ++progress;
                 --fuel;
-                if (progress >= getSmeltTime(source)) {
+                if (progress >= MetalSmelterRecipe.instance().getField("smeltTime", new ItemStack(source)) + random.nextInt(MetalSmelterRecipe.instance().getField("smeltTimeDelta", new ItemStack(source)))) {
                     if (isNeedReduce) {
                         if (carbonMonoxide.getFluidAmount() > 0) {
                             ++reduceProgress;
                             carbonMonoxide.drain(1, true);
                             if (reduceProgress >= 3200) {
-                                inventory.insertItem(2, getReduceResult(result.getItem()), false);
                                 reduceProgress = 0;
-                                progress = 0;
-                                inventory.extractItem(0, 1, false);
+                                int count = random.nextInt(100);
+                                if (count <= 40) {
+                                    inventory.extractItem(0, 1, false);
+                                    progress = 0;
+                                }
+                                if (count > 40 && count < 75) {
+                                    inventory.insertItem(2, MetalSmelterRecipe.instance().getReduceResult(result), false);
+                                    inventory.extractItem(0, 1, false);
+                                    progress = 0;
+                                }
+                                if (count >= 75) {
+                                    inventory.insertItem(2, new ItemStack(MetalSmelterRecipe.instance().getReduceResult(result).getItem(), count / 10), false);
+                                    inventory.extractItem(0, 1, false);
+                                    progress = 0;
+                                }
                             }
                         } else {
                             return;
                         }
                     } else {
-                        inventory.insertItem(2, result, false);
-                        inventory.extractItem(0, 1, false);
+                        int count = random.nextInt(100);
+                        if (count <= 40) {
+                            inventory.extractItem(0, 1, false);
+                            progress = 0;
+                        }
+                        if (count > 40 && count < 75) {
+                            inventory.insertItem(2, result, false);
+                            inventory.extractItem(0, 1, false);
+                            progress = 0;
+                        }
+                        if (count >= 75) {
+                            inventory.insertItem(2, new ItemStack(result.getItem(), count / 10), false);
+                            inventory.extractItem(0, 1, false);
+                            progress = 0;
+                        }
                     }
                 }
             }
@@ -87,6 +119,7 @@ public class TileEntityMetalSmelter extends TileEntity implements ITickable {
             logger.info("current temp : " + temperature);
             logger.info("current fuel : " + fuel);
             logger.info("current co : " + carbonMonoxide.getFluidAmount());
+            logger.info("current reduce progress : " + reduceProgress);
         }
     }
 
@@ -99,70 +132,13 @@ public class TileEntityMetalSmelter extends TileEntity implements ITickable {
         return new ItemStack(Items.BUCKET);
     }
 
-    private int getSmeltTime(Item source) {
-        if (source == Item.getItemFromBlock(Blocks.IRON_ORE)) {
-            return 12800;
-        }
-        if (source == Item.getItemFromBlock(Blocks.GOLD_ORE)) {
-            return 19200;
-        }
-        return 0;
+    public void makeTempIncrease() {
+        isTempIncreasing = true;
     }
 
     public FluidTank getCarbonMonoxide() {
         return carbonMonoxide;
     }
-
-    private ItemStack getReduceResult(Item source) {
-        if (source == Items.IRON_INGOT) {
-            return new ItemStack(Items.IRON_INGOT);
-        }
-        if (source == Items.GOLD_INGOT) {
-            return new ItemStack(Items.GOLD_INGOT);
-        }
-        return null;
-    }
-
-    private boolean isSourceNeedReduce(Item source) {
-        if (source == Items.GOLD_INGOT) {
-            return true;
-        }
-        if (source == Items.IRON_INGOT) {
-            return true;
-        }
-        return false;
-    }
-
-    private ItemStack getItemSmeltResult(Item source) {
-        if (source == Item.getItemFromBlock(Blocks.IRON_ORE)) {
-            return new ItemStack(Items.IRON_INGOT, 1);
-        }
-        if (source == Item.getItemFromBlock(Blocks.GOLD_ORE)) {
-            return new ItemStack(Items.GOLD_INGOT, 1);
-        }
-        return ItemStack.EMPTY;
-    }
-
-    private int getSmeltingTemp(Item source) {
-        int id;
-        id = 0;
-        if (source == Item.getItemFromBlock(Blocks.IRON_ORE)) {
-            id = 1;
-        }
-        if (source == Item.getItemFromBlock(Blocks.GOLD_ORE)) {
-            id = 2;
-        }
-        switch (id) {
-            case 1:
-                return 1538;
-            case 2:
-                return 1064;
-            default:
-                return 0;
-        }
-    }
-
-
 
     @Override
     public boolean hasCapability(Capability<?> capability, EnumFacing facing) {

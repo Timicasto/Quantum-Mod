@@ -1,10 +1,7 @@
 package timicasto.quantumbase;
 
 
-import net.minecraft.client.Minecraft;
-import net.minecraft.world.World;
 import net.minecraftforge.fluids.FluidRegistry;
-import net.minecraftforge.fml.common.IWorldGenerator;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.SidedProxy;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
@@ -17,12 +14,13 @@ import net.minecraftforge.fml.relauncher.Side;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import timicasto.quantumbase.capability.CapabilityHandler;
-import timicasto.quantumbase.environment.*;
-// import timicasto.quantumbase.fluid.LiquidPetroleum;
+import timicasto.quantumbase.environment.GenTree;
+import timicasto.quantumbase.environment.PetroleumGenerator;
+import timicasto.quantumbase.environment.WorldGenCustomStructure;
+import timicasto.quantumbase.environment.WorldGenOres;
 import timicasto.quantumbase.fluid.FluidLoader;
 import timicasto.quantumbase.network.PacketMoisture;
 import timicasto.quantumbase.proxy.CommonProxy;
-import timicasto.quantumbase.register.QuantumBaseBlocks;
 
 @Mod(modid = QuantumBase.MODID, name = QuantumBase.NAME, version = QuantumBase.VERSION)
 public class QuantumBase {
