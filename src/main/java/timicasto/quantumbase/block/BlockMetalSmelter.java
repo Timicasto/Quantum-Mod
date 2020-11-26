@@ -52,12 +52,15 @@ public class BlockMetalSmelter extends Block {
                     logger.info("OPENED GUI : " + id);
                 }
             }
+<<<<<<< HEAD
         }
         ItemStack heldItem = playerIn.getHeldItem(hand);
         if (heldItem.getItem() == Items.FLINT_AND_STEEL) {
             if (tile instanceof TileEntityMetalSmelter) {
                 ((TileEntityMetalSmelter)tile).makeTempIncrease();
             }
+=======
+>>>>>>> b20c487e4dadf1e108cab267a320895588f3b145
         }
         return true;
     }
