@@ -39,28 +39,19 @@ public class BlockMetalSmelter extends Block {
 
     @Override
     public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
-        
         TileEntity tile = worldIn.getTileEntity(pos);
         if (tile instanceof TileEntityMetalSmelter) {
-            if (playerIn.getHeldItem(hand).getItem() == Items.WATER_BUCKET) {
+            ItemStack stack = playerIn.getHeldItem(hand);
+            if (stack.getItem() == Items.WATER_BUCKET) {
                 playerIn.setHeldItem(hand, ((TileEntityMetalSmelter)tile).tryAcceptFuel());
                 playerIn.sendStatusMessage(new TextComponentString("Fuel: " + ((TileEntityMetalSmelter)tile).getCO()), true);
+            } else if (stack.getItem() == Items.FLINT_AND_STEEL) {
+                ((TileEntityMetalSmelter)tile).makeTempIncrease();
             } else {
                 int id = GuiHandler.guiMetalSmelter;
-                if (playerIn.isSneaking()) {
-                    playerIn.openGui(QuantumBase.MODID, id, worldIn, pos.getX(), pos.getY(), pos.getZ());
-                    logger.info("OPENED GUI : " + id);
-                }
+                playerIn.openGui(QuantumBase.MODID, id, worldIn, pos.getX(), pos.getY(), pos.getZ());
+                logger.info("OPENED GUI : " + id);
             }
-<<<<<<< HEAD
-        }
-        ItemStack heldItem = playerIn.getHeldItem(hand);
-        if (heldItem.getItem() == Items.FLINT_AND_STEEL) {
-            if (tile instanceof TileEntityMetalSmelter) {
-                ((TileEntityMetalSmelter)tile).makeTempIncrease();
-            }
-=======
->>>>>>> b20c487e4dadf1e108cab267a320895588f3b145
         }
         return true;
     }
