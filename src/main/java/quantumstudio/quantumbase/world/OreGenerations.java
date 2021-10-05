@@ -49,10 +49,10 @@ public class OreGenerations {
 		if (ModLoader.isLoadingStateValid()) {
 			PYRITE = getOreFeature(Feature.ORE, Contents.ORE.defaultBlockState().setValue(OreBlock.TYPES, EnumOres.PYRITE), "pyrite", new OreFeatureConf(4, 16, 31, 2));
 			CHALCOPYRITE = getOreFeature(Feature.ORE, Contents.ORE.defaultBlockState().setValue(OreBlock.TYPES, EnumOres.CHALCOPYRITE), "chalcopyrite", new OreFeatureConf(8, 43, 7, 3));
-			/*GALENA = ;
-			SPHALERITE = ;
-			REALGAR = ;
-			CARNALLITE = ;
+			GALENA = getOreFeature(Feature.ORE, Contents.ORE.defaultBlockState().setValue(OreBlock.TYPES, EnumOres.GALENA), "galena", new OreFeatureConf(16, 30, 6, 3));
+			SPHALERITE = getOreFeature(Feature.ORE, Contents.ORE.defaultBlockState().setValue(OreBlock.TYPES, EnumOres.SPHALERITE), "sphalerite", new OreFeatureConf(16, 30, 6, 3));
+			REALGAR = getOreFeature(Feature.ORE, Contents.ORE.defaultBlockState().setValue(OreBlock.TYPES, EnumOres.REALGAR), "realgar", new OreFeatureConf(51, 63, 9, 4));
+			/*CARNALLITE = ;
 			MAGNETITE = ;
 			CALCITE = ;
 			MALACHITE = ;
@@ -78,7 +78,7 @@ public class OreGenerations {
 			final BiomeGenerationSettingsBuilder g = e.getGeneration();
 			g.addFeature(GenerationStep.Decoration.UNDERGROUND_ORES, PYRITE);
 			g.addFeature(GenerationStep.Decoration.UNDERGROUND_ORES, CHALCOPYRITE);
-			/*g.addFeature(GenerationStep.Decoration.UNDERGROUND_ORES, GALENA);
+			g.addFeature(GenerationStep.Decoration.UNDERGROUND_ORES, GALENA);
 			g.addFeature(GenerationStep.Decoration.UNDERGROUND_ORES, SPHALERITE);
 			g.addFeature(GenerationStep.Decoration.UNDERGROUND_ORES, REALGAR);
 			g.addFeature(GenerationStep.Decoration.UNDERGROUND_ORES, CARNALLITE);
@@ -98,7 +98,7 @@ public class OreGenerations {
 			g.addFeature(GenerationStep.Decoration.UNDERGROUND_ORES, CASSITERITE);
 			g.addFeature(GenerationStep.Decoration.UNDERGROUND_ORES, CORUNDUM);
 			g.addFeature(GenerationStep.Decoration.UNDERGROUND_ORES, QUMOITE);
-*/		}
+		}
 	}
 
 	/**
