@@ -1,0 +1,28 @@
+modLoader="javafml"
+loaderVersion="[35,)"
+logoFile="favicon.png"
+license="GNU Generic Public License 3"
+
+[[mods]]
+    modId="quantumbase"
+    version="${version}"
+    displayName="QuantumBase"
+    authors="QuantumHardwareStudio"
+    credits=""
+    description='''
+
+            '''
+
+[[dependencies.quantumbase]]
+    modId="forge"
+    mandatory=true
+    versionRange="[35.0.0,)"
+    ordering="NONE"
+    side="BOTH"
+
+[[dependencies.quantumbase]]
+    modId="minecraft"
+    mandatory=true
+    versionRange="[1.16.4, 1.17)"
+    ordering="NONE"
+    side="BOTH"

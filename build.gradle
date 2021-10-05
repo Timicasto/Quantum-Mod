@@ -1,0 +1,131 @@
+buildscript {
+    dependencies {
+        classpath 'org.ow2.asm:asm:9.0'
+        classpath 'org.ow2.asm:asm-commons:9.0'
+        classpath 'org.ow2.asm:asm-tree:9.0'
+        classpath 'org.ow2.asm:asm-util:9.0'
+        classpath 'dev.architectury.loom:dev.architectury.loom.gradle.plugin:0.7.2-SNAPSHOT'
+    }
+}
+
+
+plugins {
+    id 'java'
+    id 'dev.architectury.loom' version '0.7.2-SNAPSHOT'
+    id 'maven-publish'
+}
+
+repositories {
+    mavenCentral()
+    maven {
+        url 'https://maven.minecraftforge.net/'
+    }
+    maven {
+        url 'https://maven.architectury.dev/'
+    }
+    maven {
+        url 'https://files.minecraftforge.net/maven/'
+    }
+    maven {
+        url 'https://maven.fabricmc.net/'
+    }
+    maven {
+        name 'IzzelAliz Maven'
+        url 'https://maven.izzel.io/releases/'
+        content {
+            includeGroup 'icyllis.modernui'
+        }
+    }
+    maven {
+        url 'https://maven.shedaniel.me/'
+    }
+    gradlePluginPortal()
+}
+
+
+apply plugin: 'java'
+
+version = "${minecraft_version}-${mod_version}"
+group = 'quantumstudio'
+archivesBaseName = 'QuantumBase'
+
+loom {
+    silentMojangMappingsLicense()
+    dataGen {
+        mod 'quantumbase'
+    }
+    addTaskBeforeRun(":${project.name}:classes")
+}
+
+
+
+sourceSets {
+    main {
+        resources {
+            srcDirs += 'src/generated/resources'
+            exclude '.cache'
+        }
+    }
+}
+
+dependencies {
+    minecraft "com.mojang:minecraft:${minecraft_version}"
+    mappings minecraft.officialMojangMappings()
+    forge "net.minecraftforge:forge:${minecraft_version}-${forge_version}"
+
+    compileOnly "com.google.code.findbugs:jsr305:3.+"
+
+    modCompile group: 'icyllis.modernui', name: 'ModernUI-Forge', version: '1.16.5-2.5.2.87'
+}
+
+java {
+    withSourcesJar()
+}
+
+tasks.withType(JavaCompile).configureEach {
+    it.options.encoding = "UTF-8"
+
+    // The Minecraft launcher currently installs Java 8 for users, so your mod probably wants to target Java 8 too
+    // JDK 9 introduced a new way of specifying this that will make sure no newer classes or methods are used.
+    // We'll use that if it's available, but otherwise we'll use the older option.
+    def targetVersion = 8
+    if (JavaVersion.current().isJava9Compatible()) {
+        it.options.release.set(targetVersion)
+    }
+}
+
+processResources {
+    inputs.property 'version', mod_version
+
+    filesMatching("META-INF/mods.toml") {
+        expand 'version': mod_version
+    }
+}
+
+jar {
+    manifest {
+        attributes([
+                "Specification-Title"     : "SerializableConsciousness",
+                "Specification-Vendor"    : "Timicasto",
+                "Specification-Version"   : "1",
+                "Implementation-Title"    : project.name,
+                "Implementation-Version"  : project.version,
+                "Implementation-Vendor"   : "Timicasto",
+                "Implementation-Timestamp": new Date().format("yyyy-MM-dd'T'HH:mm:ssZ")
+        ])
+    }
+}
+
+publishing {
+    publications {
+        mavenJava(MavenPublication) {
+            artifact(remapJar) {
+                builtBy remapJar
+            }
+            artifact(sourcesJar) {
+                builtBy remapSourcesJar
+            }
+        }
+
+    }
+}
