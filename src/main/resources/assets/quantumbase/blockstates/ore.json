@@ -1,0 +1,16 @@
+{
+	"variants": {
+		"type=chalcopyrite": {
+			"model": "quantumbase:block/chalcopyrite"
+		},
+		"type=galena": {
+			"model": "quantumbase:block/galena"
+		},
+		"type=pyrite": {
+			"model": "quantumbase:block/pyrite"
+		},
+		"type=sphalerite": {
+			"model": "quantumbase:block/sphalerite"
+		}
+	}
+}

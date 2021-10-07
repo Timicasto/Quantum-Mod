@@ -55,9 +55,9 @@ public class OreGenerations {
 			/*CARNALLITE = ;
 			MAGNETITE = ;
 			CALCITE = ;
-			MALACHITE = ;
-			PLASTER = ;
-			BARITE = ;
+			MALACHITE = ;*/
+			PLASTER = getOreFeature(Feature.ORE, Contents.ORE.defaultBlockState().setValue(OreBlock.TYPES, EnumOres.PLASTER), "plaster", new OreFeatureConf(18, 57, 8, 7));
+			/*BARITE = ;
 			APATITE = ;
 			MICA = ;
 			FELDSPAR = ;
@@ -81,12 +81,12 @@ public class OreGenerations {
 			g.addFeature(GenerationStep.Decoration.UNDERGROUND_ORES, GALENA);
 			g.addFeature(GenerationStep.Decoration.UNDERGROUND_ORES, SPHALERITE);
 			g.addFeature(GenerationStep.Decoration.UNDERGROUND_ORES, REALGAR);
-			g.addFeature(GenerationStep.Decoration.UNDERGROUND_ORES, CARNALLITE);
+			/*g.addFeature(GenerationStep.Decoration.UNDERGROUND_ORES, CARNALLITE);
 			g.addFeature(GenerationStep.Decoration.UNDERGROUND_ORES, MAGNETITE);
 			g.addFeature(GenerationStep.Decoration.UNDERGROUND_ORES, CALCITE);
-			g.addFeature(GenerationStep.Decoration.UNDERGROUND_ORES, MALACHITE);
+			g.addFeature(GenerationStep.Decoration.UNDERGROUND_ORES, MALACHITE);*/
 			g.addFeature(GenerationStep.Decoration.UNDERGROUND_ORES, PLASTER);
-			g.addFeature(GenerationStep.Decoration.UNDERGROUND_ORES, BARITE);
+			/*g.addFeature(GenerationStep.Decoration.UNDERGROUND_ORES, BARITE);
 			g.addFeature(GenerationStep.Decoration.UNDERGROUND_ORES, APATITE);
 			g.addFeature(GenerationStep.Decoration.UNDERGROUND_ORES, MICA);
 			g.addFeature(GenerationStep.Decoration.UNDERGROUND_ORES, FELDSPAR);
@@ -97,7 +97,7 @@ public class OreGenerations {
 			g.addFeature(GenerationStep.Decoration.UNDERGROUND_ORES, CINNABAR);
 			g.addFeature(GenerationStep.Decoration.UNDERGROUND_ORES, CASSITERITE);
 			g.addFeature(GenerationStep.Decoration.UNDERGROUND_ORES, CORUNDUM);
-			g.addFeature(GenerationStep.Decoration.UNDERGROUND_ORES, QUMOITE);
+			g.addFeature(GenerationStep.Decoration.UNDERGROUND_ORES, QUMOITE);*/
 		}
 	}
 
