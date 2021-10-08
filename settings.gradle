@@ -26,6 +26,9 @@ pluginManagement {
         maven {
             url 'https://maven.architectury.dev/'
         }
+        maven {
+            url 'https://repo.spongepowered.org/maven'
+        }
         gradlePluginPortal()
     }
 }

@@ -52,8 +52,8 @@ public class OreGenerations {
 			GALENA = getOreFeature(Feature.ORE, Contents.ORE.defaultBlockState().setValue(OreBlock.TYPES, EnumOres.GALENA), "galena", new OreFeatureConf(16, 30, 6, 3));
 			SPHALERITE = getOreFeature(Feature.ORE, Contents.ORE.defaultBlockState().setValue(OreBlock.TYPES, EnumOres.SPHALERITE), "sphalerite", new OreFeatureConf(16, 30, 6, 3));
 			REALGAR = getOreFeature(Feature.ORE, Contents.ORE.defaultBlockState().setValue(OreBlock.TYPES, EnumOres.REALGAR), "realgar", new OreFeatureConf(51, 63, 9, 4));
-			/*CARNALLITE = ;
-			MAGNETITE = ;
+			// TODO 海底生成 CARNALLITE = ;
+			// TODO 废石生成 MAGNETITE = ;
 			CALCITE = ;
 			MALACHITE = ;
 			PLASTER = ;
@@ -68,7 +68,7 @@ public class OreGenerations {
 			CINNABAR = ;
 			CASSITERITE = ;
 			CORUNDUM = ;
-			QUMOITE = ;*/
+			QUMOITE = ;
 		}
 	}
 
