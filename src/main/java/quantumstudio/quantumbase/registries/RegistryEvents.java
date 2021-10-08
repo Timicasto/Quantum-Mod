@@ -1,12 +1,17 @@
 package quantumstudio.quantumbase.registries;
 
-import net.minecraft.world.item.CreativeModeTab;
-import net.minecraft.world.item.Item;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.Items;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.*;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.LiquidBlock;
+import net.minecraft.world.level.block.state.BlockBehaviour;
+import net.minecraft.world.level.material.FlowingFluid;
+import net.minecraft.world.level.material.Fluid;
+import net.minecraft.world.level.material.Material;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
+import net.minecraftforge.fluids.FluidAttributes;
+import net.minecraftforge.fluids.ForgeFlowingFluid;
 import net.minecraftforge.fml.common.Mod;
 import quantumstudio.quantumbase.Constants;
 import quantumstudio.quantumbase.blocks.OreBlock;
@@ -27,7 +32,19 @@ public class RegistryEvents {
     @SubscribeEvent
     public static void registerBlocks(@Nonnull RegistryEvent.Register<Block> e) {
         e.getRegistry().registerAll(
-                new OreBlock().setRegistryName("ore")
+                new OreBlock().setRegistryName("ore"),
+                new LiquidBlock(() -> Contents.PETROLEUM_STILL, BlockBehaviour.Properties.of(Material.WATER).noCollission().strength(100F).noDrops()).setRegistryName("petroleum")
+        );
+    }
+
+    @SubscribeEvent
+    public static void registerFluids(@Nonnull RegistryEvent.Register<Fluid> e) {
+        Contents.PETROLEUM_STILL_TEXTURE = new ResourceLocation("block/petroleum_still");
+        Contents.PETROLEUM_FLOWING_TEXTURE = new ResourceLocation("block/petroleum_flowing");
+        Contents.PETROLEUM_PROP = new ForgeFlowingFluid.Properties(() -> Contents.PETROLEUM_STILL, () -> Contents.PETROLEUM_FLOWING, FluidAttributes.builder(Contents.PETROLEUM_STILL_TEXTURE, Contents.PETROLEUM_FLOWING_TEXTURE).color(0xFF0D0D0E).density(4000).viscosity(4000)).bucket(() -> Contents.PETROLEUM_BUCKET).block(() -> (LiquidBlock) Contents.PETROLEUM).slopeFindDistance(3).explosionResistance(100F);
+        e.getRegistry().registerAll(
+                new ForgeFlowingFluid.Source(Contents.PETROLEUM_PROP).setRegistryName("petroleum_still"),
+                new ForgeFlowingFluid.Flowing(Contents.PETROLEUM_PROP).setRegistryName("petroleum_flowing")
         );
     }
 
@@ -53,8 +70,10 @@ public class RegistryEvents {
                 new OreDeposits.Cinnabar().setRegistryName("cinnabar"),
                 new OreDeposits.Cassiterite().setRegistryName("cassiterite"),
                 new OreDeposits.Corundum().setRegistryName("corundum"),
-                new OreDeposits.Qumoite().setRegistryName("qumoite")
+                new OreDeposits.Qumoite().setRegistryName("qumoite"),
+                new BucketItem(() -> Contents.PETROLEUM_STILL, new Item.Properties().tab(TAB).craftRemainder(Items.BUCKET)).setRegistryName("petroleum_bucket")
         );
     }
+
 
 }

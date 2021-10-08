@@ -1,15 +1,22 @@
 package quantumstudio.quantumbase.registries;
 
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.LiquidBlock;
+import net.minecraft.world.level.material.FlowingFluid;
+import net.minecraft.world.level.material.Fluids;
+import net.minecraftforge.fluids.FluidAttributes;
+import net.minecraftforge.fluids.ForgeFlowingFluid;
 import net.minecraftforge.registries.ObjectHolder;
 import quantumstudio.quantumbase.Constants;
 
 @ObjectHolder(Constants.MODID)
 public class Contents {
 	public static final Block ORE = Blocks.AIR;
+	public static final Block PETROLEUM = Blocks.AIR;
 
 	public static final Item PYRITE = Items.AIR;
 	public static final Item CHALCOPYRITE = Items.AIR;
@@ -33,4 +40,12 @@ public class Contents {
 	public static final Item CASSITERITE = Items.AIR;
 	public static final Item CORUNDUM = Items.AIR;
 	public static final Item QUMOITE = Items.AIR;
+	public static final Item PETROLEUM_BUCKET = Items.AIR;
+
+	public static ResourceLocation PETROLEUM_STILL_TEXTURE;
+	public static ResourceLocation PETROLEUM_FLOWING_TEXTURE;
+
+	public static final FlowingFluid PETROLEUM_STILL = Fluids.WATER;
+	public static final FlowingFluid PETROLEUM_FLOWING = Fluids.WATER;
+	public static ForgeFlowingFluid.Properties PETROLEUM_PROP;
 }

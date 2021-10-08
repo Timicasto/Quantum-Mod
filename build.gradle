@@ -50,7 +50,7 @@ group = 'quantumstudio'
 archivesBaseName = 'QuantumBase'
 
 loom {
-    mixinConfig "mixin.quantummod.json"
+    /*mixinConfig "mixin.quantummod.json"*/
     silentMojangMappingsLicense()
     dataGen {
         mod 'quantumbase'

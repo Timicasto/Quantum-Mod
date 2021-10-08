@@ -1,0 +1,7 @@
+{
+  "replace": false,
+  "values": [
+    "quantumbase:petroleum_still",
+    "quantumbase:petroleum_flowing"
+  ]
+}

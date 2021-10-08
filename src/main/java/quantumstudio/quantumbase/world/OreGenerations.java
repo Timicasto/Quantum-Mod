@@ -2,14 +2,18 @@ package quantumstudio.quantumbase.world;
 
 import net.minecraft.core.Registry;
 import net.minecraft.data.BuiltinRegistries;
+import net.minecraft.data.worldgen.Features;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.levelgen.GenerationStep;
 import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
 import net.minecraft.world.level.levelgen.feature.Feature;
+import net.minecraft.world.level.levelgen.feature.configurations.BlockStateConfiguration;
+import net.minecraft.world.level.levelgen.feature.configurations.NoneFeatureConfiguration;
 import net.minecraft.world.level.levelgen.feature.configurations.OreConfiguration;
 import net.minecraft.world.level.levelgen.feature.configurations.RangeDecoratorConfiguration;
+import net.minecraft.world.level.levelgen.placement.ChanceDecoratorConfiguration;
 import net.minecraft.world.level.levelgen.placement.FeatureDecorator;
 import net.minecraftforge.common.world.BiomeGenerationSettingsBuilder;
 import net.minecraftforge.event.world.BiomeLoadingEvent;
@@ -44,6 +48,7 @@ public class OreGenerations {
 	private static ConfiguredFeature<?, ?> CASSITERITE;
 	private static ConfiguredFeature<?, ?> CORUNDUM;
 	private static ConfiguredFeature<?, ?> QUMOITE;
+	private static ConfiguredFeature<?, ?> PETROLEUM;
 
 	public static void initFeatures() {
 		if (ModLoader.isLoadingStateValid()) {
@@ -52,12 +57,12 @@ public class OreGenerations {
 			GALENA = getOreFeature(Feature.ORE, Contents.ORE.defaultBlockState().setValue(OreBlock.TYPES, EnumOres.GALENA), "galena", new OreFeatureConf(16, 30, 6, 3));
 			SPHALERITE = getOreFeature(Feature.ORE, Contents.ORE.defaultBlockState().setValue(OreBlock.TYPES, EnumOres.SPHALERITE), "sphalerite", new OreFeatureConf(16, 30, 6, 3));
 			REALGAR = getOreFeature(Feature.ORE, Contents.ORE.defaultBlockState().setValue(OreBlock.TYPES, EnumOres.REALGAR), "realgar", new OreFeatureConf(51, 63, 9, 4));
-			// TODO 海底生成 CARNALLITE = ;
-			// TODO 废石生成 MAGNETITE = ;
+			/*CARNALLITE = ;
+			MAGNETITE = ;
 			CALCITE = ;
-			MALACHITE = ;
-			PLASTER = ;
-			BARITE = ;
+			MALACHITE = ;*/
+			PLASTER = getOreFeature(Feature.ORE, Contents.ORE.defaultBlockState().setValue(OreBlock.TYPES, EnumOres.PLASTER), "plaster", new OreFeatureConf(18, 57, 8, 7));
+			/*BARITE = ;
 			APATITE = ;
 			MICA = ;
 			FELDSPAR = ;
@@ -68,7 +73,8 @@ public class OreGenerations {
 			CINNABAR = ;
 			CASSITERITE = ;
 			CORUNDUM = ;
-			QUMOITE = ;
+			QUMOITE = ;*/
+			PETROLEUM = Feature.LAKE.configured(new BlockStateConfiguration(Contents.PETROLEUM.defaultBlockState())).decorated(FeatureDecorator.WATER_LAKE.configured(new ChanceDecoratorConfiguration(2)));
 		}
 	}
 
@@ -81,12 +87,12 @@ public class OreGenerations {
 			g.addFeature(GenerationStep.Decoration.UNDERGROUND_ORES, GALENA);
 			g.addFeature(GenerationStep.Decoration.UNDERGROUND_ORES, SPHALERITE);
 			g.addFeature(GenerationStep.Decoration.UNDERGROUND_ORES, REALGAR);
-			g.addFeature(GenerationStep.Decoration.UNDERGROUND_ORES, CARNALLITE);
+			/*g.addFeature(GenerationStep.Decoration.UNDERGROUND_ORES, CARNALLITE);
 			g.addFeature(GenerationStep.Decoration.UNDERGROUND_ORES, MAGNETITE);
 			g.addFeature(GenerationStep.Decoration.UNDERGROUND_ORES, CALCITE);
-			g.addFeature(GenerationStep.Decoration.UNDERGROUND_ORES, MALACHITE);
+			g.addFeature(GenerationStep.Decoration.UNDERGROUND_ORES, MALACHITE);*/
 			g.addFeature(GenerationStep.Decoration.UNDERGROUND_ORES, PLASTER);
-			g.addFeature(GenerationStep.Decoration.UNDERGROUND_ORES, BARITE);
+			/*g.addFeature(GenerationStep.Decoration.UNDERGROUND_ORES, BARITE);
 			g.addFeature(GenerationStep.Decoration.UNDERGROUND_ORES, APATITE);
 			g.addFeature(GenerationStep.Decoration.UNDERGROUND_ORES, MICA);
 			g.addFeature(GenerationStep.Decoration.UNDERGROUND_ORES, FELDSPAR);
@@ -97,7 +103,10 @@ public class OreGenerations {
 			g.addFeature(GenerationStep.Decoration.UNDERGROUND_ORES, CINNABAR);
 			g.addFeature(GenerationStep.Decoration.UNDERGROUND_ORES, CASSITERITE);
 			g.addFeature(GenerationStep.Decoration.UNDERGROUND_ORES, CORUNDUM);
-			g.addFeature(GenerationStep.Decoration.UNDERGROUND_ORES, QUMOITE);
+			g.addFeature(GenerationStep.Decoration.UNDERGROUND_ORES, QUMOITE);*/
+			if (category == Biome.BiomeCategory.DESERT || category == Biome.BiomeCategory.JUNGLE) {
+				g.addFeature(GenerationStep.Decoration.LAKES, PETROLEUM);
+			}
 		}
 	}
 

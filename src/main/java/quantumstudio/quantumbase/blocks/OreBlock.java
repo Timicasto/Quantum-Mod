@@ -2,9 +2,8 @@ package quantumstudio.quantumbase.blocks;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.level.Level;
+import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.EnumProperty;
@@ -15,14 +14,12 @@ import quantumstudio.quantumbase.registries.Contents;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import java.util.Random;
 
 public class OreBlock extends Block {
 	public static EnumProperty<EnumOres> TYPES = EnumProperty.create("type", EnumOres.class);
 
 	public OreBlock() {
 		super(Properties.of(Material.STONE).strength(2.5F));
-
 	}
 
 	@Override
@@ -81,5 +78,10 @@ public class OreBlock extends Block {
 			default:
 				return new ArrayList<>();
 		}
+	}
+
+	@Override
+	public int getExpDrop(BlockState state, LevelReader world, BlockPos pos, int fortune, int silktouch) {
+		return RANDOM.nextInt(5) + 2;
 	}
 }
