@@ -9,10 +9,14 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import quantumstudio.quantumbase.multiblock.api.MultiBlockHandler;
+import quantumstudio.quantumbase.multiblock.api.MultiBlockMachineInstance;
+import quantumstudio.quantumbase.registries.Contents;
+import quantumstudio.quantumbase.tile.BlastFurnaceTileEntity;
 
 public class MultiBlockBlast implements MultiBlockHandler.IMultiBlock {
 	public static MultiBlockBlast instance = new MultiBlockBlast();
@@ -124,6 +128,11 @@ public class MultiBlockBlast implements MultiBlockHandler.IMultiBlock {
 	}
 
 	@Override
+	public BlockState[][][] getStructure() {
+		return structure;
+	}
+
+	@Override
 	public boolean isTrigger(BlockState s) {
 		return s.getBlock() == Blocks.BRICK_SLAB;
 	}
@@ -141,6 +150,32 @@ public class MultiBlockBlast implements MultiBlockHandler.IMultiBlock {
 			mirrored = true;
 			isValid = check(level, start, facing, mirrored);
 		}
+
+		if (isValid) {
+			for (int x = 0 ; x < 5 ; x++) {
+				for (int z = -2 ; z < 2 ; z++) {
+					for (int y = -1 ; y < 5 ; y++) {
+						if (structure[x][y + 1][z + 2].getBlock() == Blocks.AIR) {
+							int zz = mirrored ? -z : z;
+							BlockPos startx = start.relative(facing, x).relative(facing.getClockWise(), zz).offset(0, y, 0);
+							level.setBlock(startx, ((MultiBlockMachineInstance) Contents.MACHINE).state(EnumMachines.BLAST_FURNACE.ordinal()), 3);
+							BlockEntity current = level.getBlockEntity(startx);
+							if (current instanceof BlastFurnaceTileEntity) {
+								BlastFurnaceTileEntity te = (BlastFurnaceTileEntity)current;
+								te.facing = facing;
+								te.formed = true;
+								te.pos = (y + 1) * 25 + x * 5 + (z + 2);
+								te.offset = new int[]{(facing == Direction.WEST ? -z + 2 : facing == Direction.EAST ? z - 2 : facing == Direction.NORTH ? zz : -zz), y - 1, (facing == Direction.NORTH ? -z + 2 : facing == Direction.SOUTH ? z - 2 : facing == Direction.EAST ? zz : -zz)};
+								te.mirrored = mirrored;
+								te.setChanged();
+								level.blockEvent(startx, Contents.MACHINE, 255, 0);
+							}
+						}
+					}
+				}
+			}
+		}
+
 		return isValid;
 	}
 

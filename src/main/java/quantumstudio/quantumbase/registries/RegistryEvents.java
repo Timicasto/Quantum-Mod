@@ -1,21 +1,32 @@
 package quantumstudio.quantumbase.registries;
 
+import net.minecraft.client.gui.screens.MenuScreens;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.inventory.MenuType;
 import net.minecraft.world.item.*;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.LiquidBlock;
+import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.material.FlowingFluid;
 import net.minecraft.world.level.material.Fluid;
 import net.minecraft.world.level.material.Material;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
+import net.minecraftforge.common.extensions.IForgeContainerType;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fluids.FluidAttributes;
 import net.minecraftforge.fluids.ForgeFlowingFluid;
 import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import quantumstudio.quantumbase.Constants;
 import quantumstudio.quantumbase.blocks.OreBlock;
+import quantumstudio.quantumbase.gui.BlastFurnaceScreen;
+import quantumstudio.quantumbase.gui.containers.BlastFurnaceMenu;
 import quantumstudio.quantumbase.items.OreDeposits;
+import quantumstudio.quantumbase.multiblock.api.MultiBlockMachineInstance;
+import quantumstudio.quantumbase.tile.BlastFurnaceTileEntity;
 
 import javax.annotation.Nonnull;
 
@@ -33,7 +44,8 @@ public class RegistryEvents {
     public static void registerBlocks(@Nonnull RegistryEvent.Register<Block> e) {
         e.getRegistry().registerAll(
                 new OreBlock().setRegistryName("ore"),
-                new LiquidBlock(() -> Contents.PETROLEUM_STILL, BlockBehaviour.Properties.of(Material.WATER).noCollission().strength(100F).noDrops()).setRegistryName("petroleum")
+                new LiquidBlock(() -> Contents.PETROLEUM_STILL, BlockBehaviour.Properties.of(Material.WATER).noCollission().strength(100F).noDrops()).setRegistryName("petroleum"),
+                new MultiBlockMachineInstance().setRegistryName("machine")
         );
     }
 
@@ -75,5 +87,26 @@ public class RegistryEvents {
         );
     }
 
+    @SubscribeEvent
+    public static void registerTileEntities(@Nonnull RegistryEvent.Register<BlockEntityType<?>> e) {
+        e.getRegistry().registerAll(
+                BlockEntityType.Builder.of(BlastFurnaceTileEntity::new, Contents.MACHINE).build(null).setRegistryName("blast_furnace")
+        );
+    }
 
+    @SubscribeEvent
+    public static void registerMenus(@Nonnull RegistryEvent.Register<MenuType<?>> e) {
+        e.getRegistry().registerAll(
+                IForgeContainerType.create(BlastFurnaceMenu::new).setRegistryName("blast_furnace_menu")
+        );
+    }
+
+    @OnlyIn(Dist.CLIENT)
+    @Mod.EventBusSubscriber(value = Dist.CLIENT, modid = Constants.MODID, bus = Mod.EventBusSubscriber.Bus.MOD)
+    public static final class Client {
+        @SubscribeEvent
+        public static void setup(FMLClientSetupEvent e) {
+            MenuScreens.register(Contents.BLAST_FURNACE_MENU, BlastFurnaceScreen::new);
+        }
+    }
 }

@@ -28,6 +28,7 @@ public class MultiBlockHandler {
 
 	public interface IMultiBlock {
 		String getUniqueName();
+		BlockState[][][] getStructure();
 		boolean isTrigger(BlockState s);
 		boolean form(Level level, BlockPos pos, Direction facing, Player player);
 		ItemStack[][][] renderStructureInGUI();

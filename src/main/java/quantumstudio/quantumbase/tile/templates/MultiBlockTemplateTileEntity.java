@@ -1,4 +1,4 @@
-package quantumstudio.quantumbase.multiblock.tile.templates;
+package quantumstudio.quantumbase.tile.templates;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
